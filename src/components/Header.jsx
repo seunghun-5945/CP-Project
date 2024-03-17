@@ -55,7 +55,7 @@ const TitleRight = styled.div`
 
 const StyleInput = styled.input`
   width: 60%;
-  margin-left: 1%;
+  margin-left: 2%;
   padding: 1% 0% 1% 1%;
   font-size: 20px;
   border: 2px solid salmon;
@@ -82,7 +82,7 @@ const Header = () => {
         <Title>
           <TitleLeft>
             <img src={InjeIcon} alt="Inje Icon" width={40} height={40} style={{marginTop:"5px" , marginLeft:"5%" , marginRight:"1%"}}/>
-            <span>Inje Market</span>
+            <span>INJE Market</span>
             <StyleInput placeholder="검색어를 입력해주세요"/>
           </TitleLeft>
           <TitleRight>
