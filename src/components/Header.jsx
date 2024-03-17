@@ -5,7 +5,9 @@ import InjeIcon from './inje.svg';
 
 const Container = styled.div`
   width: 100%;
-  height: 15vh;
+  height: 25vh;
+  position: sticky;
+  top: 0;
   background-color: white;
   display: flex;
   align-items: center;
@@ -15,10 +17,10 @@ const Container = styled.div`
 
 const Frame = styled.div`
   width: 1400px;
-  height: 15vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items:  ;
+  align-items: center;
   justify-content: center;
   background-color: white;
 `;
