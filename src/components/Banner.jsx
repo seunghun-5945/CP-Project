@@ -34,6 +34,12 @@ const LinkStyle = {
   cursor: "pointer",
 };
 
+const CustomRadio = styled.input`
+  margin: 0% 5px 3% 5px;
+  background-color: red;
+  /* 원하는 CSS를 여기에 추가하세요 */
+`;
+
 const RadioStyle = {
   margin: "0% 5px 3% 5px",
   backgroundColor: "red",
@@ -83,7 +89,7 @@ const Banner = () => {
   
       <InputFrame>
         {bannerImg.map((banner, index) => (
-          <input
+          <CustomRadio
             key={index}
             type="radio"
             style={RadioStyle}

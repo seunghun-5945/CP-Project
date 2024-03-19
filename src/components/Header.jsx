@@ -25,9 +25,21 @@ const Frame = styled.div`
   background-color: white;
 `;
 
+const SiteMap = styled.div`
+  width: 100%;
+  height: 25%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  ul {
+    margin: 0% 2% 0% 2%;
+  }
+`;
+
 const Title = styled.div`
   width: 100%;
-  height: 80%;
+  height: 55%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -81,6 +93,10 @@ const Header = () => {
   return (
     <Container>
       <Frame>
+        <SiteMap>
+          <ul>로그인 / 회원가입</ul>
+          <ul>고객센터</ul>
+        </SiteMap>
         <Title>
           <TitleLeft>
             <img src={InjeIcon} alt="Inje Icon" width={40} height={40} style={{marginTop:"5px" , marginLeft:"5%" , marginRight:"1%"}}/>
@@ -90,7 +106,7 @@ const Header = () => {
           <TitleRight>
             <h2>경매올리기</h2>
             <h2>시세조회</h2>
-            <h2 style={{marginRight:"5%"}}>로그인/회원가입</h2>
+            <h2 style={{marginRight:"5%"}}>마이페이지</h2>
           </TitleRight>
         </Title>
         <NavBar props={<NavBarContent/>} />
