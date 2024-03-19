@@ -1,0 +1,16 @@
+[
+  {
+    "Index": 0,
+    "Title": "키보드 팔아요~",
+    "Product": "레오폴드 키보드",
+    "Price": "100000",
+    "Image": "public/images/leopold.jpg"
+  },
+  {
+    "Index": 1,
+    "Title": "아이폰13 팝니다",
+    "Product": "아이폰13 스페이스그레이",
+    "Price": "400000",
+    "Image": "public/images/iphone13sg.jpg"
+  }
+]

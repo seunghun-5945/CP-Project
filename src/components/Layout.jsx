@@ -25,13 +25,15 @@ const Main = styled.div`
 
 const Layout = ( {props} ) => {
   return (
+    <>
     <Container>
       <Header />
       <Main>
       {props}
       </Main>
-      <Footer />
     </Container>
+      <Footer />
+    </>
   );
 };
 

@@ -8,7 +8,7 @@ const Container = styled.div`
   height: 30vh;
   display: flex;
   flex-direction: column;
-  margin-top: 5%;
+  margin-top: 3%;
   background-color: lightsalmon;
 `;
 
