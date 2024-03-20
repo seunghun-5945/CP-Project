@@ -5,7 +5,7 @@ import InjeIcon from './inje.svg';
 
 const Container = styled.div`
   width: 100%;
-  height: 25vh;
+  height: 20vh;
   position: sticky;
   top: 0;
   background-color: white;

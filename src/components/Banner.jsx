@@ -5,7 +5,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 const Container = styled.div`
   width: 100%;
-  height: 30vh;
+  height: 350px;
   display: flex;
   flex-direction: column;
   margin-top: 3%;
@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const ArrowFrame = styled.div`
   width: 100%;
-  height: 28vh;
+  height: 330px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,7 +22,7 @@ const ArrowFrame = styled.div`
 
 const InputFrame = styled.div`
   width: 100%;
-  height: 2vh;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
