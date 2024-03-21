@@ -88,7 +88,7 @@ const Banner = () => {
       </ArrowFrame>
   
       <InputFrame>
-        {bannerImg.map((banner, index) => (
+        {bannerImg.map((index) => (
           <CustomRadio
             key={index}
             type="radio"

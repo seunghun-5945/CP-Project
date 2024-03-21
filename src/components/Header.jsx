@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
 import InjeIcon from './inje.svg';
@@ -43,6 +44,9 @@ const Title = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  a {
+    width: 110px;
+  }
 `;
 
 const TitleLeft = styled.div`
@@ -76,6 +80,12 @@ const StyleInput = styled.input`
   background-color: rgb(247,247,247)
 `;
 
+const LinkStyle = {
+  textDecoration: "none",
+  color: "black",
+  margin: "0px",
+}
+
 const NavBarContent = () => {
   return (
     <>
@@ -104,7 +114,9 @@ const Header = () => {
             <StyleInput placeholder="검색어를 입력해주세요"/>
           </TitleLeft>
           <TitleRight>
-            <h2>경매올리기</h2>
+            <Link to="/Auction" style={LinkStyle}>
+              <h2>경매올리기</h2>
+            </Link>
             <h2>시세조회</h2>
             <h2 style={{marginRight:"5%"}}>마이페이지</h2>
           </TitleRight>

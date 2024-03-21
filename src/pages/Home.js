@@ -30,7 +30,7 @@ const HomeContent = () => {
       <SubBanner />
       <h2 style={{marginTop:"3%"}}>마감 인박 경매</h2>
       <Frame>
-      {Item.map((item) => (
+        {Item.map((item) => (
           <ItemFrame
             key={item.Index}
             Product={item.Product}
@@ -39,13 +39,22 @@ const HomeContent = () => {
           />
         ))}
       </Frame>
+      <h2 style={{marginTop:"3%"}}>최근에 올라온 경매</h2>
+        <Frame>
+        {Item.map((item) => (
+            <ItemFrame
+              key={item.Index}
+              Product={item.Product}
+              Price={item.Price}
+              Image={item.Image}
+            />
+          ))}
+        </Frame>
     </Container>
   )
 }
 
 const Home = () => {
-  return (
-    <Layout props={<HomeContent />} />
-  )
+  return <Layout props={<HomeContent />} />
 };
 export default Home;

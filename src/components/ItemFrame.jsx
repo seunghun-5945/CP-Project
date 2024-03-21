@@ -4,20 +4,27 @@ import styled from "styled-components";
 const Container = styled.div`
   width: 220px;
   height: 350px;
-  border: 1px solid black;
+  border: 1px solid lightgray;
   background-color: #FAFAFA;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const ImageFrame = styled.div`
   width: 100%;
   height: 200px;
-  border: 1px solid black;
 `;
 
 const TextFrame = styled.div`
   width: 100%;
   height: 40px;
-  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: bold;
 `;
 
 const ItemFrame = ( {Product, Price, Image} ) => {
@@ -25,13 +32,13 @@ const ItemFrame = ( {Product, Price, Image} ) => {
   return (
     <Container>
       <ImageFrame>
-        <img src={Image} style={{backgroundSize:"cover"}}/>
+        <img src={Image} />
       </ImageFrame>
       <TextFrame style={{marginTop:"12%"}}>
         {Product}
       </TextFrame>
       <TextFrame>
-        {Price}
+        경매 시작가: {Price}
       </TextFrame>
       <TextFrame>
         
