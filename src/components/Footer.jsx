@@ -26,7 +26,7 @@ const Footer = () => {
   return (
     <Container>
       <Frame>
-        <h1>INJE MARKET</h1>
+        <h1>BE BID</h1>
         <ul>대표 박준수  경남 김해시 인제로 197 P&N 동아리방 TEL. 010-7580-7117</ul>
       </Frame>
     </Container>

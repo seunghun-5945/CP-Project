@@ -1,16 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-const ItemFrame = styled.div`
+const Container = styled.div`
   width: 220px;
   height: 350px;
+  border: 1px solid black;
+  background-color: #FAFAFA;
 `;
 
 const ImageFrame = styled.div`
   width: 100%;
   height: 200px;
   border: 1px solid black;
-  border-radius: 10px;
 `;
 
 const TextFrame = styled.div`
@@ -19,11 +20,12 @@ const TextFrame = styled.div`
   border: 1px solid black;
 `;
 
-const Item = ( {Product, Price, Image} ) => {
+const ItemFrame = ( {Product, Price, Image} ) => {
+
   return (
-    <ItemFrame>
+    <Container>
       <ImageFrame>
-        {Image}
+        <img src={Image} style={{backgroundSize:"cover"}}/>
       </ImageFrame>
       <TextFrame style={{marginTop:"12%"}}>
         {Product}
@@ -34,8 +36,8 @@ const Item = ( {Product, Price, Image} ) => {
       <TextFrame>
         
       </TextFrame>
-    </ItemFrame>
+    </Container>
   )
 }
 
-export default Item;
+export default ItemFrame;

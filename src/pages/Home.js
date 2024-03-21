@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Layout from "../components/Layout";
 import Banner from "../components/Banner";
 import SubBanner from "../components/SubBanner";
-import Item from "../components/Item";
-import Items from "../json/Item.json";
+import ItemFrame from "../components/ItemFrame";
+import Item from "../json/Item.json";
 
 const Container = styled.div`
   width: 1400px;
@@ -30,11 +30,14 @@ const HomeContent = () => {
       <SubBanner />
       <h2 style={{marginTop:"3%"}}>마감 인박 경매</h2>
       <Frame>
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
+      {Item.map((item) => (
+          <ItemFrame
+            key={item.Index}
+            Product={item.Product}
+            Price={item.Price}
+            Image={item.Image}
+          />
+        ))}
       </Frame>
     </Container>
   )
