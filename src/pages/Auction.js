@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Layout from "../components/Layout";
+import DropdownList from "../components/DropdownList";
 
 const Container = styled.div`
   width: 1300px;
@@ -134,6 +135,7 @@ const AuctionContent = () => {
          <h2 style={{marginTop:"20%"}}>카테고리</h2>
         </FourthBoxL>
         <FourthBoxR>
+          <DropdownList />
         </FourthBoxR>
       </FourthBox>
       <InputBox>
