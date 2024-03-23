@@ -1,10 +1,11 @@
-import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Layout from "../components/Layout";
 import Banner from "../components/Banner";
 import SubBanner from "../components/SubBanner";
 import ItemFrame from "../components/ItemFrame";
 import Item from "../json/Item.json";
+import axios from "axios";
 
 const Container = styled.div`
   width: 1400px;
@@ -24,15 +25,23 @@ const Frame = styled.div`
 
 const HomeContent = () => {
 
+  const [data, setData] = useState(null);
+
+  const axiosTest = () => {
+    axios.get('http://localhost:2024/User').then((result)=>{
+      setData(result.data[0].id);
+    })
+  }
+
   return (
     <Container>
       <Banner />
       <SubBanner />
       <h2 style={{marginTop:"3%"}}>마감 인박 경매</h2>
       <Frame>
-        {Item.map((item) => (
+        {Item.map((item, oldest) => (
           <ItemFrame
-            key={item.Index}
+            key={oldest}
             Product={item.Product}
             Price={item.Price}
             Image={item.Image}
@@ -41,14 +50,19 @@ const HomeContent = () => {
       </Frame>
       <h2 style={{marginTop:"3%"}}>최근에 올라온 경매</h2>
         <Frame>
-        {Item.map((item) => (
+        {Item.map((item, resent) => (
             <ItemFrame
-              key={item.Index}
+              key={resent}
               Product={item.Product}
               Price={item.Price}
               Image={item.Image}
             />
           ))}
+        </Frame>
+        
+        <Frame>
+          <h1>여기에 엑시오스로 받아온 데이터 들어갈거임: {data}</h1>
+          <button onClick={axiosTest}>버튼임</button>
         </Frame>
     </Container>
   )

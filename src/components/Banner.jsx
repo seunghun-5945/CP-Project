@@ -88,13 +88,13 @@ const Banner = () => {
       </ArrowFrame>
   
       <InputFrame>
-        {bannerImg.map((index) => (
+        {bannerImg.map((item, banner) => (
           <CustomRadio
-            key={index}
+            key={banner}
             type="radio"
             style={RadioStyle}
-            checked={count === index}
-            onClick={() => setCount(index)}
+            checked={count === item.index}
+            onChange={() => setCount(item.index)}
           />
         ))}
       </InputFrame>

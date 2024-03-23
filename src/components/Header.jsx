@@ -36,6 +36,10 @@ const SiteMap = styled.div`
   ul {
     margin: 0% 2% 0% 2%;
   }
+
+  a {
+    width: 10%;
+  }
 `;
 
 const Title = styled.div`
@@ -101,6 +105,7 @@ const LinkStyle = {
   textDecoration: "none",
   color: "black",
   margin: "0px",
+  display: "flex",
 }
 
 const NavBarContent = () => {
@@ -121,8 +126,10 @@ const Header = () => {
     <Container>
       <Frame>
         <SiteMap>
-          <ul>로그인 / 회원가입</ul>
-          <ul>고객센터</ul>
+          <Link to="/SignIn" style={LinkStyle}>
+            <ul>로그인 / 회원가입</ul>
+          </Link>
+            <ul>고객센터</ul>
         </SiteMap>
         <Title>
           <TitleLeft>

@@ -1,14 +1,16 @@
-[
-  {
-    "name": "이승훈",
-    "id": "tmdgns5945",
-    "nickname": "tmdgns5945",
-    "password": "tmdgns0403"
-  },
-  {
-    "name": "현지훈",
-    "id": "hyunjihun",
-    "nickname": "hyunjihun1234",
-    "password": "inje1234"
-  }
-]
+{
+  "User": [
+    {
+      "name": "이승훈",
+      "id": "tmdgns5945",
+      "nickname": "tmdgns5945",
+      "password": "tmdgns0403"
+    },
+    {
+      "name": "현지훈",
+      "id": "hyunjihun",
+      "nickname": "hyunjihun1234",
+      "password": "inje1234"
+    }
+  ]
+}
