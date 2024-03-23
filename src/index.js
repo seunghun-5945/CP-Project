@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Home from './pages/Home';
 import Auction from './pages/Auction';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import MyPage from './pages/MyPage';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -11,8 +14,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/SignIn" element={<SignIn />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/MyPage" element={<MyPage />} />
         <Route path="/Auction" element={<Auction />} />
-        <Route path="/" element={<Home />} /> 
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

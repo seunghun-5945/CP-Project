@@ -58,13 +58,30 @@ const TitleLeft = styled.div`
     font-size: 40px; 
     font-weight: bold;
   }
+
+  a {
+    width: 230px;
+    display: flex;
+    align-items: center;
+    justity-content: center;
+  }
+
+  h1 {
+    font-size: 45px;
+    color: salmon;
+  }
+
+  img {
+    width: 25%;
+    margin-right: 3%;
+  }
 `;
 
 const TitleRight = styled.div`
   width: 30%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
   h2 {
     font-size: 20px;
     margin: 0% 2% 0% 2%;
@@ -72,7 +89,7 @@ const TitleRight = styled.div`
 `;
 
 const StyleInput = styled.input`
-  width: 60%;
+  width: 70%;
   margin-left: 2%;
   padding: 1% 0% 1% 1%;
   font-size: 20px;
@@ -109,8 +126,10 @@ const Header = () => {
         </SiteMap>
         <Title>
           <TitleLeft>
-            <img src={InjeIcon} alt="Inje Icon" width={40} height={40} style={{marginTop:"5px" , marginLeft:"5%" , marginRight:"1%"}}/>
-            <span>INJE Market</span>
+            <Link to="/" style={LinkStyle}>
+                <img src="/images/BebidIcon.png" />
+                <h1>BE BID</h1>
+            </Link>
             <StyleInput placeholder="검색어를 입력해주세요"/>
           </TitleLeft>
           <TitleRight>
