@@ -144,7 +144,9 @@ const Header = () => {
               <h2>경매올리기</h2>
             </Link>
             <h2>시세조회</h2>
-            <h2 style={{marginRight:"5%"}}>마이페이지</h2>
+            <Link to="/MyPage" style={LinkStyle}>
+              <h2 style={{marginRight:"5%"}}>마이페이지</h2>
+            </Link>
           </TitleRight>
         </Title>
         <NavBar props={<NavBarContent/>} />

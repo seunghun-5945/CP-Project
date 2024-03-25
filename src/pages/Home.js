@@ -33,6 +33,12 @@ const HomeContent = () => {
     })
   }
 
+  const idCheck = () => {
+    return (
+      console.log("hello")
+    )
+  }
+
   return (
     <Container>
       <Banner />
@@ -62,7 +68,7 @@ const HomeContent = () => {
         
         <Frame>
           <h1>여기에 엑시오스로 받아온 데이터 들어갈거임: {data}</h1>
-          <button onClick={axiosTest}>버튼임</button>
+          <button onClick={idCheck}>클릭!</button>
         </Frame>
     </Container>
   )

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 import Sign from "../components/Sign";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import axios from 'axios';
 
 const SignUpFrame = styled.div`
     width: 100%;
@@ -222,6 +223,8 @@ const SignUpContent = () => {
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
     const [confirmPw, setConfirmPw] = useState('');
+		const [isSameID, setIsSameId] = useState();
+		const [data, setData] = useState('');
 
     // 입력 유효성 검사를 위한 변수들임
     const [pwValid, setPwValid] = useState(false);
@@ -272,14 +275,30 @@ const SignUpContent = () => {
     const onClickSignUpBtn = () => {
         if (!notAllow) {
             alert('회원가입에 성공했습니다.');
+							axios.post('http://localhost:2024/User', {
+								id: id,
+								password: pw,
+								nickname: name,
+					})
+
         } else {
             alert('회원가입 정보를 올바르게 입력해주세요.');
         }
     };
 
+
+		const idCheck = () => {
+			axios.get('http://localhost:2024/User').then((result)=>{
+				console.log(result.data)
+				result.data.map((item)=>{
+					console.log(item);
+				})
+			})
+		}
+
     return (
         <SignUpFrame>
-            <form>
+            <>
                 <Title>
                     <h2>계정만들기</h2>
                 </Title>
@@ -302,7 +321,7 @@ const SignUpContent = () => {
                     </Left>
 
                     <Right>
-                        <Btn1>
+                        <Btn1 onClick={idCheck}>
                             <span>중복확인</span>
                         </Btn1>
                     </Right>
@@ -317,7 +336,7 @@ const SignUpContent = () => {
                     />
                 </NameBox>
 
-                <PwBox error={!pwValid && pw.length > 0}>
+                <PwBox /*error={!pwValid && pw.length > 0}*/>
                     <Input
                         type={showPassword ? 'text' : 'password'}
                         placeholder="암호를 입력해주세요"
@@ -330,9 +349,9 @@ const SignUpContent = () => {
                         <EyeIcon2 onClick={handleEyeClick} />
                     )}
                 </PwBox>
-                {!pwValid && pw.length > 0 &&<ErrorMessage>비밀번호는 8~20자여야 합니다.</ErrorMessage>}
+                {!pwValid && pw.length > 0 &&<ErrorMessage>비밀번호는 8~20자여야 합니다.</ErrorMessage>} 
 
-                <PwOkBox error={!confirmPwValid && confirmPw.length > 0}>
+                <PwOkBox /*error={!confirmPwValid && confirmPw.length > 0}*/>
                     <Input
                         type="password"
                         placeholder="암호를 다시 한번 입력해주세요"
@@ -345,7 +364,7 @@ const SignUpContent = () => {
                 <NewBtn onClick={onClickSignUpBtn} disabled={notAllow}>
                     <span>계정만들기</span>
                 </NewBtn>
-            </form>
+            </>
         </SignUpFrame>
     );
 };
