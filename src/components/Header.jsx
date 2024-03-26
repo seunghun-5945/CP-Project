@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import NavBar from "../components/NavBar";
@@ -109,6 +109,7 @@ const LinkStyle = {
 }
 
 const NavBarContent = () => {
+
   return (
     <>
       <ul>카테고리</ul>
@@ -122,13 +123,40 @@ const NavBarContent = () => {
 }
 
 const Header = () => {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(()=> {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+    else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    return (
+      localStorage.removeItem('token'),
+      setIsLoggedIn(false)
+    );
+  };
+
   return (
     <Container>
       <Frame>
         <SiteMap>
-          <Link to="/SignIn" style={LinkStyle}>
+          {isLoggedIn ? (
+            <Link to="/SignIn" style={LinkStyle}>
+            <ul onClick={handleLogout} style={{marginRight:"0px"}}>로그아웃</ul>
+            </Link>
+            ) : ( 
+            <Link to="/SignIn" style={LinkStyle}>
             <ul>로그인 / 회원가입</ul>
-          </Link>
+            </Link>
+            )}
+
             <ul>고객센터</ul>
         </SiteMap>
         <Title>

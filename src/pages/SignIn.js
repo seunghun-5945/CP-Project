@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import Sign from "../components/Sign";
+import axios from 'axios';
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -192,10 +194,7 @@ const LinkStyle = {
 
 const SignInContent = () => {
 
-    const User = { // 가상의 데이터
-        id: '20203206',
-        pw: '1234'
-    }
+    const navigate = useNavigate();
 
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
@@ -224,11 +223,19 @@ const SignInContent = () => {
         setShowPassword(!showPassword);
     };
 
-    const onClickConfirmButton = () => {
-        if (id === User.id && pw === User.pw) {
-            alert('로그인에 성공했습니다.');
-        } else {
-            alert('등록되지 않은 회원입니다.')
+    const onClickConfirmButton = async() => {
+        try {
+            const response = await axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app' + '/api/users/login' , {
+                data: {
+                    name: id,
+                    password: pw
+                }
+            })
+            localStorage.setItem("token", response.data.token);
+            navigate('/');
+        }
+        catch (error) {
+            alert('에러남');
         }
     }
 
@@ -237,9 +244,11 @@ const SignInContent = () => {
         setNotAllow(!(newId.length >= 1 && newPw.length >= 1));
     };
 
+
+
     return (
         <SignInFrame>
-            <form>
+            <>
                 <Title>
                     <h2>로그인</h2>
                 </Title>
@@ -286,7 +295,7 @@ const SignInContent = () => {
                         </KakaoContent>
                     </Kakao>
                 </Bottom>
-            </form>
+            </>
         </SignInFrame>
     );
 };

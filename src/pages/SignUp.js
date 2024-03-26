@@ -258,7 +258,7 @@ const SignUpContent = () => {
     const updateButtonState = (newPassword, newConfirmPassword) => {
         setNotAllow(
             !(
-                newPassword.length >= 8 &&
+                newPassword.length >= 0 &&
                 newPassword.length <= 20 &&
                 newConfirmPassword === newPassword
             )
@@ -275,11 +275,13 @@ const SignUpContent = () => {
     const onClickSignUpBtn = () => {
         if (!notAllow) {
             alert('회원가입에 성공했습니다.');
-							axios.post('http://localhost:2024/User', {
-								id: id,
-								password: pw,
-								nickname: name,
-					})
+							axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app'+ '/api/users/create', {
+                data: {
+                  name: id,
+                  password: pw,
+                  nick_name: name
+                }
+              })
 
         } else {
             alert('회원가입 정보를 올바르게 입력해주세요.');
@@ -287,14 +289,21 @@ const SignUpContent = () => {
     };
 
 
-		const idCheck = () => {
-			axios.get('http://localhost:2024/User').then((result)=>{
-				console.log(result.data)
-				result.data.map((item)=>{
-					console.log(item);
-				})
-			})
-		}
+		const idCheck = async() => {
+      try {
+			  const response = await axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app' + '/api/users/login' , {
+          data: {
+            name: id,
+            password: pw
+          }
+        })
+        console.log("성공")
+        console.log(response.data.token)
+      }
+      catch (error) {
+        console.log("실패")
+      }
+    }
 
     return (
         <SignUpFrame>
