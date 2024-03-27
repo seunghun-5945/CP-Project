@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import NavBar from "../components/NavBar";
-import InjeIcon from './inje.svg';
+import AddedMenu from "../components/AddedMenu";
 
 const Container = styled.div`
   width: 100%;
@@ -38,6 +37,7 @@ const SiteMap = styled.div`
   }
 
   a {
+    display: flex;
     width: 10%;
   }
 `;
@@ -105,29 +105,43 @@ const LinkStyle = {
   textDecoration: "none",
   color: "black",
   margin: "0px",
+  padding: "0px",
   display: "flex",
 }
 
-const NavBarContent = () => {
+const NavBarContainer = styled.div`
+  width: 100%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+`;
 
-  return (
-    <>
-      <ul>카테고리</ul>
-      <ul>중고경매</ul>
-      <ul>핫 템</ul>
-      <ul>이벤트</ul>
-      <ul>커뮤니티</ul>
-      <ul>고객지원</ul>
-    </>
-  )
-}
+const AddedMenuContainer = styled.div`
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: green;
+  position: fixed;
+  border-bottom: 1px solid gray;
+  top: 20vh;
+  display: ${props => props.addedMenu ? 'block' : 'none'};
+`;
+
+
 
 const Header = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  const [addedMenu, setAddedMenu] = useState(false);
 
   useEffect(()=> {
-    const token = localStorage.getItem('token');
+
     if (token) {
       setIsLoggedIn(true);
     }
@@ -143,43 +157,78 @@ const Header = () => {
     );
   };
 
-  return (
-    <Container>
-      <Frame>
-        <SiteMap>
-          {isLoggedIn ? (
-            <Link to="/SignIn" style={LinkStyle}>
-            <ul onClick={handleLogout} style={{marginRight:"0px"}}>로그아웃</ul>
-            </Link>
-            ) : ( 
-            <Link to="/SignIn" style={LinkStyle}>
-            <ul>로그인 / 회원가입</ul>
-            </Link>
-            )}
+  const enterMypage = () => {
+    if (token) {
+      return (
+        alert('마이페이지로 이동됨'),
+        navigate('/MyPage')
+      )
+    }
+    else {
+      return (
+        alert('로그인을 해주세요'),
+        navigate('/SignIn')
+      )
+    }
+  }
 
-            <ul>고객센터</ul>
-        </SiteMap>
-        <Title>
-          <TitleLeft>
-            <Link to="/" style={LinkStyle}>
-                <img src="/images/BebidIcon.png" />
-                <h1>BE BID</h1>
-            </Link>
-            <StyleInput placeholder="검색어를 입력해주세요"/>
-          </TitleLeft>
-          <TitleRight>
-            <Link to="/Auction" style={LinkStyle}>
-              <h2>경매올리기</h2>
-            </Link>
-            <h2>시세조회</h2>
-            <Link to="/MyPage" style={LinkStyle}>
-              <h2 style={{marginRight:"5%"}}>마이페이지</h2>
-            </Link>
-          </TitleRight>
-        </Title>
-        <NavBar props={<NavBarContent/>} />
-      </Frame>
-    </Container>
+  const AddedMenuOpen = () => {
+    setAddedMenu(true);
+    console.log('호버')
+  }
+
+  const AddedMenuClose = () => {
+    setAddedMenu(false);
+    console.log('논호버')
+  }
+
+  return (
+    <>
+      <Container>
+        <Frame>
+          <SiteMap>
+            {isLoggedIn ? (
+              <Link to="/" style={LinkStyle}>
+                <ul onClick={handleLogout}>로그아웃</ul>
+              </Link>
+              ) : ( 
+              <Link to="/SignIn" style={LinkStyle}>
+              <ul>로그인 / 회원가입</ul>
+              </Link>
+              )}
+
+              <ul>고객센터</ul>
+          </SiteMap>
+          <Title>
+            <TitleLeft>
+              <Link to="/" style={LinkStyle}>
+                  <img src="/images/BebidIcon.png" />
+                  <h1>BE BID</h1>
+              </Link>
+              <StyleInput placeholder="검색어를 입력해주세요"/>
+            </TitleLeft>
+            <TitleRight>
+              <Link to="/Auction" style={LinkStyle}>
+                <h2>경매올리기</h2>
+              </Link>
+              <h2>시세조회</h2>
+              <h2 onClick={enterMypage} style={{marginRight:"5%"}}>마이페이지</h2>
+            </TitleRight>
+          </Title>
+          <NavBarContainer>
+            <ul onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>카테고리</ul>
+            <ul onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>중고경매</ul>
+            <ul onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>핫 템</ul>
+            <ul onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>이벤트</ul>
+            <ul onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>커뮤니티</ul>
+            <ul onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>고객지원</ul>
+          </NavBarContainer>
+        </Frame>
+      </Container>
+      <AddedMenuContainer addedMenu={addedMenu}>
+        <AddedMenu />
+      </AddedMenuContainer>
+    </>
   );
 };
 

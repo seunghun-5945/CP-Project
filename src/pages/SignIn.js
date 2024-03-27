@@ -235,7 +235,7 @@ const SignInContent = () => {
             navigate('/');
         }
         catch (error) {
-            alert('에러남');
+            alert('회원 정보가 일치하지 않습니다.');
         }
     }
 
