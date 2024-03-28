@@ -7,6 +7,7 @@ const Container = styled.div`
   width: 100%;
   height: 20vh;
   position: sticky;
+  z-index: 10000;
   top: 0;
   background-color: white;
   display: flex;
@@ -116,6 +117,15 @@ const NavBarContainer = styled.div`
   align-items: center;
   justify-content: space-around;
   flex-direction: row;
+  background-color: white;
+`;
+
+const NavBarItem = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const AddedMenuContainer = styled.div`
@@ -124,7 +134,7 @@ const AddedMenuContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: green;
+  background-color: white;
   position: fixed;
   border-bottom: 1px solid gray;
   top: 20vh;
@@ -182,6 +192,8 @@ const Header = () => {
     console.log('논호버')
   }
 
+  const categoryList = ["중고경매" , "핫템" , "이벤트" , "커뮤니티" , "고객지원"]
+
   return (
     <>
       <Container>
@@ -212,16 +224,19 @@ const Header = () => {
                 <h2>경매올리기</h2>
               </Link>
               <h2>시세조회</h2>
-              <h2 onClick={enterMypage} style={{marginRight:"5%"}}>마이페이지</h2>
+              <h2 onClick={enterMypage} style={{marginRight:"5%" , cursor:"pointer"}}>마이페이지</h2>
             </TitleRight>
           </Title>
           <NavBarContainer>
-            <ul onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>카테고리</ul>
-            <ul onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>중고경매</ul>
-            <ul onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>핫 템</ul>
-            <ul onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>이벤트</ul>
-            <ul onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>커뮤니티</ul>
-            <ul onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>고객지원</ul>
+            {/* {categoryList.map((item) => {
+              <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>중고거래</NavBarItem>
+            })} */}
+            <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>중고거래</NavBarItem>
+            <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>핫 템</NavBarItem>
+            <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>이벤트</NavBarItem>
+            <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>커뮤니티</NavBarItem>
+            <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>고객지원</NavBarItem>
+            <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>카테고리</NavBarItem>
           </NavBarContainer>
         </Frame>
       </Container>

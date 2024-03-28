@@ -65,11 +65,6 @@ const HomeContent = () => {
             />
           ))}
         </Frame>
-        
-        <Frame>
-          <h1>여기에 엑시오스로 받아온 데이터 들어갈거임: {data}</h1>
-          <button onClick={idCheck}>클릭!</button>
-        </Frame>
     </Container>
   )
 }

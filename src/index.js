@@ -8,6 +8,7 @@ import SignUp from './pages/SignUp';
 import MyPage from './pages/MyPage';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import EmployeeInfo from './pages/EmployeeInfo';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,6 +20,7 @@ root.render(
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/MyPage" element={<MyPage />} />
         <Route path="/Auction" element={<Auction />} />
+        <Route path="/EmployeeInfo" element={<EmployeeInfo />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
