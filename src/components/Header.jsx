@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import AddedMenu from "../components/AddedMenu";
 
 const Container = styled.div`
   width: 100%;
@@ -128,27 +127,11 @@ const NavBarItem = styled.div`
   justify-content: center;
 `;
 
-const AddedMenuContainer = styled.div`
-  width: 100%;
-  height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  position: fixed;
-  border-bottom: 1px solid gray;
-  top: 20vh;
-  display: ${props => props.addedMenu ? 'block' : 'none'};
-`;
-
-
-
 const Header = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-  const [addedMenu, setAddedMenu] = useState(false);
 
   useEffect(()=> {
 
@@ -182,16 +165,6 @@ const Header = () => {
     }
   }
 
-  const AddedMenuOpen = () => {
-    setAddedMenu(true);
-    console.log('호버')
-  }
-
-  const AddedMenuClose = () => {
-    setAddedMenu(false);
-    console.log('논호버')
-  }
-
   const categoryList = ["중고경매" , "핫템" , "이벤트" , "커뮤니티" , "고객지원"]
 
   return (
@@ -223,7 +196,9 @@ const Header = () => {
               <Link to="/Auction" style={LinkStyle}>
                 <h2>경매올리기</h2>
               </Link>
-              <h2>시세조회</h2>
+              <Link to="/test" style={LinkStyle}>
+                <h2>시세조회</h2>
+              </Link>
               <h2 onClick={enterMypage} style={{marginRight:"5%" , cursor:"pointer"}}>마이페이지</h2>
             </TitleRight>
           </Title>
@@ -231,18 +206,15 @@ const Header = () => {
             {/* {categoryList.map((item) => {
               <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>중고거래</NavBarItem>
             })} */}
-            <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>중고거래</NavBarItem>
-            <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>핫 템</NavBarItem>
-            <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>이벤트</NavBarItem>
-            <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>커뮤니티</NavBarItem>
-            <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>고객지원</NavBarItem>
-            <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>카테고리</NavBarItem>
+            <NavBarItem>중고거래</NavBarItem>
+            <NavBarItem>핫 템</NavBarItem>
+            <NavBarItem>이벤트</NavBarItem>
+            <NavBarItem>커뮤니티</NavBarItem>
+            <NavBarItem>고객지원</NavBarItem>
+            <NavBarItem>카테고리</NavBarItem>
           </NavBarContainer>
         </Frame>
       </Container>
-      <AddedMenuContainer addedMenu={addedMenu}>
-        <AddedMenu />
-      </AddedMenuContainer>
     </>
   );
 };

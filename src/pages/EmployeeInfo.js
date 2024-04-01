@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Layout from "../components/Layout";
-import keyframes from "styled-components";
 import EmployeeBox from "../components/EmployeeBox";
 
 const shine = keyframes`
   0% {
-    opacity: 0;
+    opacity:0;
   }
   100% {
-    opacity: 1;
+    opacity:1;
   }
 `;
 
@@ -17,12 +16,11 @@ const Container = styled.div`
   width: 100%;
   height: auto;
   display: flex;
+  opacity: 0;
   flex-direction: column;
   align-items: center;
-  opacity: 1;
-  display: none;
-  animation: ${shine} 1s ease-in-out forwards;
-  animation-delay: 2s;
+  animation: ${shine} 5s forwards;
+  animation-delay: 1s;
 `;
 
 const SmallBox = styled.div`

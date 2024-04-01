@@ -1,12 +1,16 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import Layout from "../components/Layout";
 import DropdownList from "../components/DropdownList";
+import axios from "axios";
 
 const Container = styled.div`
   width: 1300px;
   height: auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin-top: 3%;
 `;
 
@@ -58,11 +62,11 @@ const BigBoxR = styled.div`
 `;
 
 const ImgFrame = styled.div`
-  width: 30%;
-  height: 75%;
+  width: 300px;
+  height: 300px;
   border: 1px solid black;
-  background-image: url("images/regImg.png");
-  background-size: 101% 101%;
+  background-size: cover;
+  background-position: center;
 `;
 
 const StyledInput = styled.input`
@@ -72,7 +76,40 @@ const StyledInput = styled.input`
   padding-left: 3%;
 `;
 
+const StyleButton = styled.button`
+  width: 400px;
+  height: 100px;
+`;
+
 const AuctionContent = () => {
+
+  const [image, setImage] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  
+  const fileUpload = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+  
+    reader.onload = function (event) {
+      setImage(event.target.result);
+      setSelectedFile(file);
+    };
+  
+    reader.readAsDataURL(file);
+  };
+
+  const sendImage = () => {
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+
+    axios.post("/upload", formData)
+      .then((response) => {
+        console.log("Image upload successful:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error uploading image:", error);
+      });
+  };
 
   return (
     <Container>
@@ -85,7 +122,8 @@ const AuctionContent = () => {
           <h2 style={{marginTop:"20%"}}>상품이미지(12)</h2>
         </BigBoxL>
         <BigBoxR>
-          <ImgFrame />
+          <ImgFrame style={{ backgroundImage: `url(${image})` }}/>
+          <input type="file" accept="image/*" onChange={fileUpload} />
         </BigBoxR>
       </BigBox>
       <SmallBox>
@@ -112,9 +150,7 @@ const AuctionContent = () => {
           <StyledInput placeholder="흥정 시작가격을 입력하세요"/>
         </SmallBoxR>
       </SmallBox>
-      <BigBox>
-        
-      </BigBox>
+      <StyleButton onClick={sendImage}>제출하기</StyleButton>
     </Container>
   );
 };

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Layout from "../components/Layout";
 import Modal from "../components/Modal";
 import { FiSearch } from "react-icons/fi";
+import axios from "axios";
 
 const Frame = styled.div`
   width: 100%;
@@ -308,6 +309,7 @@ const ModalContent = ({ content }) => {
 };
 
 const Modal1 = () => {
+
   return (
     <>
       <ModalMain>

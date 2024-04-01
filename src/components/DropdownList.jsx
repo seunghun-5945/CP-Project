@@ -59,8 +59,8 @@ const DropdownList = () => {
   return (
     <Container>
       <DropdownLeft>
-        {LeftJson.map((item)=> (
-          <DropdownItem>
+        {LeftJson.map((item, kategory)=> (
+          <DropdownItem key={kategory}>
             {item.name}
           </DropdownItem>
         ))}

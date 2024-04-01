@@ -61,12 +61,12 @@ const Sign = ({ props }) => {
 							<LoginCont>
 									{props}
 							</LoginCont>
-
 							<InjeNaraText>
-							<img src="images/BeBidIcon.png" alt="BeBidIcon" style={{marginTop:"20px" , width:"50px" , height:"80px"}}/>
-									<p style={{fontSize:"80px"}}><Link to="/" style={LinkStyle}>BeBid</Link></p>
+								<img src="images/BeBidIcon.png" alt="BeBidIcon" style={{marginTop:"20px" , width:"50px" , height:"80px"}}/>
+										<p style={{fontSize:"80px"}}>
+											<Link to="/" style={LinkStyle}>BeBid</Link>
+										</p>
 							</InjeNaraText>
-
 					</LoginIn>
 					</Wrap>
 			</Frame>
