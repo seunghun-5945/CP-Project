@@ -98,17 +98,16 @@ const AuctionContent = () => {
     reader.readAsDataURL(file);
   };
 
-  const sendImage = () => {
-    const formData = new FormData();
-    formData.append("image", selectedFile);
-
-    axios.post("/upload", formData)
-      .then((response) => {
-        console.log("Image upload successful:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error uploading image:", error);
-      });
+  const sendImage = async () => {
+    const response = await axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app'+'/api/writing', {
+      "data": {
+        "userid": "string",
+        "title": "string",
+        "text": "string",
+        "startprice": 0,
+        "picture": "string"
+      }
+    })
   };
 
   return (

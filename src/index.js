@@ -7,6 +7,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import MyPage from './pages/MyPage';
 import Test from './pages/Test';
+import Test2 from './pages/Test2';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import EmployeeInfo from './pages/EmployeeInfo';
@@ -22,6 +23,7 @@ root.render(
         <Route path="/MyPage" element={<MyPage />} />
         <Route path="/Auction" element={<Auction />} />
         <Route path="/Test" element={<Test />} />
+        <Route path="/Test2" element={<Test2 />} />
         <Route path="/EmployeeInfo" element={<EmployeeInfo />} />
       </Routes>
     </BrowserRouter>

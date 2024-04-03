@@ -207,7 +207,7 @@ const Header = () => {
               <NavBarItem onMouseEnter={AddedMenuOpen} onMouseLeave={AddedMenuClose}>중고거래</NavBarItem>
             })} */}
             <NavBarItem>중고거래</NavBarItem>
-            <NavBarItem>핫 템</NavBarItem>
+            <NavBarItem>핫 템!</NavBarItem>
             <NavBarItem>이벤트</NavBarItem>
             <NavBarItem>커뮤니티</NavBarItem>
             <NavBarItem>고객지원</NavBarItem>

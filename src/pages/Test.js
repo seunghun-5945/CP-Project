@@ -24,7 +24,7 @@ const Box = styled.div`
   border: 1px solid black;
 `;
 
-function App() {
+function Test() {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [rePassword, setRepassword] = useState('');
@@ -47,7 +47,7 @@ function App() {
 
     try {
       const response = await axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app' + '/api/users/changing_password', {
-        "data": {
+        data: {
           "user_password": password,
           "password": newPassword,
           "confirm_password": rePassword,
@@ -62,13 +62,13 @@ function App() {
   }
 
   const onWithDrawal = async () => {
-    
+    console.log(token);
     try {
-    const response = await axios.delete('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app' + '/api/users/delete_user', {
-      "data": {
-        "authorization": token
-      }
-    })
+      const response = await axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app'+'/api/users/delete_user', {
+        data: {
+          authorization: token 
+        }
+      });
     console.log('성공');
     }
     catch(error) {
@@ -100,4 +100,4 @@ function App() {
   );
 }
 
-export default App;
+export default Test;

@@ -6,12 +6,14 @@ import SubBanner from "../components/SubBanner";
 import ItemFrame from "../components/ItemFrame";
 import Item from "../json/Item.json";
 import axios from "axios";
+import DailyModal from "../components/DailyModal";
 
 const Container = styled.div`
   width: 1400px;
   height: 100%;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   flex-direction: column;
 `;
 
@@ -26,6 +28,7 @@ const Frame = styled.div`
 const HomeContent = () => {
 
   const [data, setData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const axiosTest = () => {
     axios.get('http://localhost:2024/User').then((result)=>{
@@ -41,6 +44,7 @@ const HomeContent = () => {
 
   return (
     <Container>
+      <DailyModal/>
       <Banner />
       <SubBanner />
       <h2 style={{marginTop:"3%"}}>마감 인박 경매</h2>

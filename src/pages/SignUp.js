@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Sign from "../components/Sign";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpFrame = styled.div`
 	width: 100%;
@@ -238,6 +239,8 @@ const SignUpContent = () => {
 
 	const [showPassword, setShowPassword] = useState(false);
 
+	const navigate = useNavigate();
+
 	// 비밀번호 입력 핸들러임
 	const handlePw = (e) => {
 			const newPassword = e.target.value;
@@ -273,6 +276,7 @@ const SignUpContent = () => {
 
 	// 회원가입 버튼 클릭 핸들러임
 	const onClickSignUpBtn = () => {
+		
 			if (!notAllow) {
 					alert('회원가입에 성공했습니다.');
 						axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app'+ '/api/users/create', {
@@ -282,7 +286,7 @@ const SignUpContent = () => {
 								nick_name: name
 							}
 						})
-
+			navigate('/SignIn')
 			} else {
 					alert('회원가입 정보를 올바르게 입력해주세요.');
 			}
