@@ -48,10 +48,10 @@ function Test() {
     try {
       const response = await axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app' + '/api/users/changing_password', {
         data: {
-          "user_password": password,
-          "password": newPassword,
-          "confirm_password": rePassword,
-          "authorization": token
+          user_password: password,
+          password: newPassword,
+          confirm_password: rePassword,
+          authorization: token
         }
       })
       console.log('작동함');
@@ -60,21 +60,23 @@ function Test() {
       console.log('에러남');
     }
   }
-
-  const onWithDrawal = async () => {
-    console.log(token);
+ 
+  
+  const onWithDrawal = async (token) => {
     try {
-      const response = await axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app'+'/api/users/delete_user', {
-        data: {
-          authorization: token 
+      const response = await axios.delete('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app/api/users/delete_user', {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       });
-    console.log('성공');
-    }
-    catch(error) {
-      console.log('실패');
+      console.log('서버로부터 응답:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('요청 중 오류 발생:', error);
+      throw error;
     }
   }
+  
 
   return (
     <Container>

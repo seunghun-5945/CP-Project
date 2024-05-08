@@ -209,6 +209,7 @@ const SignInContent = () => {
 
     const handleIdChange = (e) => {
         setId(e.target.value);
+        console.log(e.target.value);
         updateButtonState(e.target.value, pw);
     };
 
@@ -244,7 +245,11 @@ const SignInContent = () => {
         setNotAllow(!(newId.length >= 1 && newPw.length >= 1));
     };
 
-
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && !notAllow) {
+            onClickConfirmButton();
+        }
+      };    
 
     return (
         <SignInFrame>
@@ -258,6 +263,7 @@ const SignInContent = () => {
                         placeholder="아이디를 입력해주세요"
                         value={id}
                         onChange={handleIdChange}
+                        onKeyDown={handleKeyDown}
                     />
                 </IdBox>
 
@@ -267,6 +273,7 @@ const SignInContent = () => {
                         placeholder="암호를 입력해주세요"
                         value={pw}
                         onChange={handlePwChange}
+                        onKeyDown={handleKeyDown}
                     />
                     {showPassword ? (
                         <EyeIcon onClick={handleEyeClick} />

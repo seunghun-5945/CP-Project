@@ -2,489 +2,505 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Layout from "../components/Layout";
 import Modal from "../components/Modal";
-import { FiSearch } from "react-icons/fi";
-import axios from "axios";
 
 const Frame = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: row;
-  margin-top: 7%;
-`;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    margin-top: 7%;
+  `;
 
-const Left = styled.div`
-  width: 15%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  p {
-    padding-bottom: 30px;
-    font-size: 24px;
-    font-weight: bold;
-  }
-  border: solid 2px;
-`;
+//여기부터 왼쪽 박스의 내용
+const LeftBox = styled.div`
+    width: 15%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    p {
+      padding-bottom: 30px;
+      font-size: 23px;
+      font-weight: bold;
+    }
+  `;
 
 const LeftMenu = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  h2 {
-    margin-bottom: 20px;
-    font-size: 22px;
-  }
-  li {
-    list-style-type: none;
-    margin-bottom: 20px;
-    color: #343434;
-    cursor: pointer;
-  }
-  hr {
-    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    li {
+      list-style-type: none;
+      margin-bottom: 20px;
+      color: #343434;
+      cursor: pointer;
+    }
+  `;
+
+const LeftHr = styled.div`
+    width: 100%;
+    border-bottom: solid 1px;
     margin-bottom: 30px;
-    border-color: #e7e7e7;
-  }
-`;
+    margin-top: 10px;
+    color: #dadee5;
+  `
 
-const Right = styled.div`
-  width: 85%;
-  height: 100%;
+//여기부터 오른쪽 박스의 내용
+const RightBox = styled.div`
+    width: 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+  `;
+
+const RightInfoBox = styled.div`
+    width: 100%;
+    height: 30%;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 100px;
+  `;
+
+//오른쪽 박스의 왼쪽 내용(사용자 이름, 횟수)
+const RightBoxL = styled.div`
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  `;
+
+const LTitle = styled.h1`
   display: flex;
   flex-direction: column;
-`;
-
-const RightMain = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 67%;
-  margin-left: 20px;
-`;
-
-const RightInfo = styled.div`
   width: 100%;
-  height: 60%;
-  border: solid 1px;
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-`;
+  height: 20%;
+  `;
 
-const RightL = styled.div`
-  width: 55%;
-  height: 100%;
-  border: solid 1px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const RightR = styled.div`
-  width: 45%;
-  height: 100%;
-  border: solid 1px;
+const LExplain = styled.div`
+    display: flex;
+    width:100%;
+    height: 20%;
+    margin-top: 10px;
+    p {
+      font-size: 18px;
+      color: #858c90;
+    }
 `
 
-const Title = styled.h1`
-  display: flex;
-  flex-direction: column;
-  border: solid 1px;
-`
-
-const Box = styled.div`
-  width: 90%;
-  height: 50%;
-  border: solid 1px;
-  border-radius: 15px;
-  border-color: lightgray;
-  margin-top: 30px;
-  display: flex;  
-  flex-direction: row;
-`
-
-const BoxIn = styled.div`
-  width: 25%;
-  height: 100%;
+const LTransactionBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: solid 1px;
+  width: 90%;
+  height: 60%;
+  border-radius: 10px;
+  border: solid 1px lightgray;
+`;
+
+const LBoxIn = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid lightgray;
+    flex-direction: column;
+    width: 100%;
+    height: 40%;
+`;
+
+const LBoxInR = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 40%;
+`;
+
+const LBoxInText = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40%;
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 8px;
+`;
+
+//오른쪽 박스 오른쪽 디자인(신뢰지수, 출석)
+const RightBoxR = styled.div`
+    width: 50%;
+    height: 100%;
+  `
+
+const RBoxL = styled.div`
+    width: 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  `
+
+const RBoxTop = styled.div`
+    width:100%;
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+`
+
+const RBoxTopL = styled.div`
+  display: flex;
+  align-items: center;
+  width: 75%;
+  height: 100%;
+  font-weight: bold;
+
+  h2 {
+    margin-left: 5px;
+    margin-bottom: 3px;
+    font-size: 20px;
+  }
+`
+
+const RBoxTopR = styled.div`
+  display: flex;
+  height: 100%;
+  font-weight: bold;
+  margin-top: 15px;
+  margin-left: 40px;
+`
+
+const BoxGauge = styled.div`
+  width: 90%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+`
+
+// 이미지 공간
+const RBoxR = styled.div`  
+    width: 100%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+  `
+
+const RBoxImage = styled.div`
+    width: 15%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("images/basic.png");
+    background-size: 100% 100%;
+    margin-left: 20px;
+  `
+
+// 여기부터 출석체크하는 박스 디자인
+const BoxR = styled.div`
+    width: 100%;
+    height: 60%;
+    border-radius: 15px;
+    border-color: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-color: #f7f7f7;
+    margin-top: 25px;
+  `
+
+const BoxRleft = styled.div`
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    width: 18%;
+    height: 70%;
+    background-image: url("images/calendar.png");
+    background-size: 100% 100%;
+`
+
+const BoxRmid = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 55%;
+  height: 100%;
+  h2{
+    margin-bottom: 5px;
+  }
+`
+
+const BoxRright = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  height: 30%;
   border-radius: 15px;
+  border: none;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+  cursor: pointer;
+  margin-right: 10px;
+
+  &:hover {
+    background: #202020;
+}
 `
 
 const RightProduct = styled.div`
-  width: 100%;
-  height: 40%;
-  border: solid 1px;
-  margin-top: 30px;
-  h2 {
-    padding: 10px;
-  }
-`;
+    width: 100%;
+    height: 30%;
+    h2 {
+      padding: 10px;
+    }
+    border: solid 1px;
+  `;
 
 const ProductMenu = styled.div`
-  width: 100%;
-  height: 20%;
-  border: solid 1px;
-  display: flex;
-  align-items: center;
-`;
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    border-bottom: solid 1px lightgray;
+  `;
 
-const ProductMenuItem = styled.h3`
+const ProductMenuItem1 = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    height: 100%;
+    cursor: pointer;
+    border-bottom: solid 2px black;
+  `;
+
+const ProductMenuItem2 = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 20%;
   height: 100%;
-  border: solid 1px;
   cursor: pointer;
+  border-bottom: solid 2px red;
 `;
+
+const ProductMenuItem3 = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    height: 100%;
+    cursor: pointer;
+    border-bottom: solid 2px blue;
+  `;
 
 const ProductBox = styled.div`
-  width: 100%;
-  height: 60%;
-`;
+    width: 100%;
+    height: 60%;
+  `;
 
-// 여기부터 모달 디자인
-const ModalMain = styled.div`
-  width: 100%;
-  height: 93%;
-  padding: 15px;
-  border: solid 1px;
-`
-
-const Modal1Header = styled.div`
-  width: 100%;
-  height: 20%;
-  border: solid 1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`
-
-const Modal1Ig = styled.div`
-  display: flex;
-  width: 25%;
-  height: 70%;
-  background-image: url("images/basic.jpg");
-  background-size: 100% 100%;
-  margin-top: 20px;
-`
-
-const Modal1Name = styled.h3`
-  width: 100%;
-  height: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`
-
-const Modal1Main = styled.div`
-  width: 100%;
-  height: 60%;
-  border: solid 1px;
-  display: flex;
-  background-color: salmon;
-  flex-direction: column;
-  padding: 10px;
-`
-
-const Modal1Text = styled.h2`
-  width: 100%;
-  height: 10%;
-  border: solid 1px;
-`
-
-const Modal1Space = styled.div`
+// 게이지 디자인
+const StyledBase = styled.div`
   display: flex;
   flex-direction: row;
+  height: 12px;
   width: 100%;
-  height:20%;
-`
-
-const Modal1Name2 = styled.h2`
-  display: flex;
-  align-items: center;
-  width: 30%;
-  height: 100%;
-  color: lightgray;
-  border: solid 1px;
-  font-size: 18px;
-`
-
-const Modal1Name2Text = styled.h2`
-  display: flex;
-  align-items: center;
-  width: 70%;
-  height: 100%;
-  border: solid 1px;
-  font-size: 18px;
-  flex-direction: row;  
-`
-
-const Modal1Id = styled.h2`
-  display: flex;
-  align-items: center;
-  width: 30%;
-  height: 100%;
-  color: lightgray;
-  border: solid 1px;
-  font-size: 18px;
-`
-
-const Modal1IdText = styled.h2`
-  display: flex;
-  align-items: center;
-  width: 70%;
-  height: 100%;
-  border: solid 1px;
-  font-size: 18px;
-  flex-direction: row;  
-`
-
-const Modal1Pw = styled.h2`
-  display: flex;
-  align-items: center;
-  width: 30%;
-  height: 100%;
-  color: lightgray;
-  border: solid 1px;
-  font-size: 18px;
-`
-
-const Modal1PwText = styled.h2`
-  display: flex;
-  align-items: center;
-  width: 70%;
-  height: 100%;
-  border: solid 1px;
-  font-size: 18px;
-  flex-direction: row;  
-`
-
-// 여기부터 모달2 디자인
-const Modal2Title = styled.h2`
-  border: solid 1px;
-  font-size: 23px;
-`
-
-const ModalSearch = styled.div`
-  width: 100%;
-  height: 5%;
-  background-color: #f2f2f2;
-  border-radius: 8px;
-  padding: 10px;
-  position: relative; /* 부모 요소에 상대적 위치 설정 */
-`;
-
-const SearchInput = styled.input`
-  background-color: transparent; /* 투명 배경 설정 */
   border: none;
-  width: 95%;
-  height: 100%;
-  outline: none; /* 포커스 시 테두리 제거 */
-  display: flex;
+  border-radius: 15px;
+  background-color: #e0e0e0;
+`
+
+const StyledRange = styled.div`
+  width: ${({ width }) => `${width}%`};
+  height: 12px;
+  border-radius: 15px;
+  background: linear-gradient(to right, #FFACFC, #B76CFD);
 `;
 
-const SearchIconWrapper = styled.div`
-  position: absolute; /* 부모 요소에 대해 절대 위치 설정 */
-  top: 50%;
-  transform: translateY(-50%);
-  right: 10px;
-`;
-
-const SearchIcon = styled(FiSearch)`
-  font-size: 20px;
-  cursor: pointer;
-`;
-
-const ModalContent = ({ content }) => {
-  // 모달 내용을 props로 받도록 수정
-  return (
-    <>
-      {content}
-    </>
-  )
-};
-
-const Modal1 = () => {
-
-  return (
-    <>
-      <ModalMain>
-        <Modal1Header>
-        <Modal1Ig/>
-        <Modal1Name>
-          현지훈
-        </Modal1Name>
-        </Modal1Header>
-
-        <Modal1Main>
-          <Modal1Text>회원정보</Modal1Text>
-
-          <Modal1Space>
-          <Modal1Name2>사용자이름</Modal1Name2>
-          <Modal1Name2Text>현지훈</Modal1Name2Text>
-          </Modal1Space>
-
-          <Modal1Space>
-          <Modal1Id>아이디</Modal1Id>
-          <Modal1IdText>inje2024</Modal1IdText>
-          </Modal1Space>
-
-          <Modal1Space>
-          <Modal1Pw>비밀번호</Modal1Pw>
-          <Modal1PwText>1234</Modal1PwText>
-          </Modal1Space>
-
-        </Modal1Main>
-      </ModalMain>
-    </>
-  )
-};
-
-const Modal2 = () => {
-  return (
-    <>
-      <ModalMain>
-        <Modal2Title>탈퇴 사유를 알려주시면<br />개선을 위해 노력하겠습니다</Modal2Title>
-      </ModalMain>
-    </>
-  )
-};
-
-const Modal3 = () => {
-  return (
-    <>
-      <ModalMain>
-        <ModalSearch>
-          <SearchInput type="text" placeholder="상품명을 입력해주세요." />
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-        </ModalSearch>
-      </ModalMain>
-    </>
-  )
-};
-
-const Modal4 = () => {
-  return (
-    <>
-      <ModalMain>
-        <ModalSearch>
-          <SearchInput type="text" placeholder="상품명을 입력해주세요." />
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-        </ModalSearch>
-      </ModalMain>
-    </>
-  )
-};
+const Hello = styled.div`
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+`
 
 const Entire = () => {
-  return <>전체</>;
+  return (
+    <>
+      <Hello>
+        전체
+      </Hello>
+    </>
+  )
 };
 
 const Sell = () => {
-  return <>판매중</>;
+  return (
+    <>
+      <Hello>
+        판매중
+      </Hello>
+    </>
+  )
 };
 
 const Clear = () => {
-  return <>판매완료</>;
+  return (
+    <>
+     <Hello>
+        판매완료
+      </Hello>
+    </>
+  )
 };
 
 const MyPageContent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState(""); // 모달 내용을 상태로 관리
-  const [selectedProductMenu, setSelectedProductMenu] = useState("전체");
-
+  const [modalTitle, setModalTitle] = useState(""); // 모달 제목을 상태로 관리
+  const [selectedMenu, setSelectedMenu] = useState(Entire);
+  const [modalKey, setModalKey] = useState('')
+  //  기존의 콘텐츠 형식으로 넘기던 프롭스를 키값으로 넘겨
+  // 모달 컴포넌트를 띄울 때 키 값을 보낸다.
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  const handleItemClick = (content, title) => {
+  const handleItemClick = (title, keys) => {
     // 리스트 아이템 클릭 핸들러
-    setModalContent(content); // 클릭된 리스트 아이템에 해당하는 모달 내용으로 설정
-    setIsModalOpen(true); // 모달 열기
     setModalTitle(title); // 모달 제목 설정
+    setModalKey(keys) // 셋 콘텐츠를 키값 수정으로 변경 그 외 제목 설정 모달 오픈 관련 스테이트는 남겨둠
+    setIsModalOpen(true); // 모달 열기
   };
 
   const handleProductMenuClick = (menu) => {
-    setSelectedProductMenu(menu);
+    setSelectedMenu(menu);
   };
 
-  const [modalTitle, setModalTitle] = useState(""); // 모달 제목을 상태로 관리
+  const exp = 100;
+  const ratio = parseInt(60); // parseInt((exp % 100) * 100 / 100); <-- 원본
 
   return (
     <Frame>
-      <Left>
+      <LeftBox>
         <p>마이페이지</p>
         <LeftMenu>
           <h2>내 정보</h2>
-          <li onClick={() => handleItemClick(Modal1, "회원정보수정")}>회원정보수정</li>
-          <li onClick={() => handleItemClick(Modal2, "탈퇴하기")}>탈퇴하기</li>
+          <li onClick={() => handleItemClick("비밀번호 변경", "edit")}>비밀번호 변경</li>
+          <li onClick={() => handleItemClick("탈퇴하기", "withdraw")}>탈퇴하기</li>
 
-          <hr />
+          <LeftHr />
 
           <ul>
             <h2>거래 정보</h2>
-            <li onClick={() => handleItemClick(Modal3, "구매내역")}>구매내역</li>
-            <li onClick={() => handleItemClick(Modal4, "판매내역")}>판매내역</li>
+            <li onClick={() => handleItemClick("구매내역", "buyList")}>구매내역</li>
+            <li onClick={() => handleItemClick("판매내역", "sellList")}>판매내역</li>
           </ul>
         </LeftMenu>
         {isModalOpen && (
-          <Modal title={modalTitle} props={<ModalContent content={modalContent} />} onClose={closeModal} />
+          <Modal title={modalTitle} modalKey={modalKey} onClose={closeModal} />
         )}
-      </Left>
+      </LeftBox>
 
-      <Right>
-        <RightMain>
-          <RightInfo>
-            <RightL>
-            <Title>사용자 이름</Title>
-            <Box>
-              <BoxIn>
+      <RightBox>
+
+        <RightInfoBox>
+          <RightBoxL>
+            <LTitle>사용자 이름</LTitle>
+
+            <LExplain>
+              <p>거래를 한 후 신뢰지수를 높여보세요</p>
+            </LExplain>
+
+            <LTransactionBox>
+
+              <LBoxIn>
                 총 거래 횟수
-              </BoxIn>
-              <BoxIn>
+                <LBoxInText>
+                  0
+                </LBoxInText>
+              </LBoxIn>
+
+              <LBoxIn>
                 구매 횟수
-              </BoxIn>
-              <BoxIn>
+                <LBoxInText>
+                  0
+                </LBoxInText>
+              </LBoxIn>
+
+              <LBoxInR>
                 판매 횟수
-              </BoxIn>
-              <BoxIn>
-                ???
-              </BoxIn>
-            </Box>
-            </RightL>
+                <LBoxInText>
+                  0
+                </LBoxInText>
+              </LBoxInR>
+            </LTransactionBox>
+          </RightBoxL>
 
-            <RightR>
+          <RightBoxR>
+            <RBoxR>
+              <RBoxL>
+                <RBoxTop>
+                  <RBoxTopL>
+                    <h2>신뢰지수</h2>
+                    <h2>{ratio}</h2>
+                  </RBoxTopL>
+                  <RBoxTopR>
+                    <p>100</p>
+                  </RBoxTopR>
+                </RBoxTop>
+                <BoxGauge>
+                  <StyledBase>
+                    <StyledRange width={ratio} />
+                  </StyledBase>
+                </BoxGauge>
+              </RBoxL>
 
-            </RightR>
+              <RBoxImage />
+            </RBoxR>
 
-          </RightInfo>
+            <BoxR>
+              <BoxRleft></BoxRleft>
+              <BoxRmid>
+                <h2>출석확인하러가기</h2>
+                님이 몇 번을 출석했는지 확인하셈 ~
+              </BoxRmid>
+              <BoxRright>버튼</BoxRright>
+            </BoxR>
+          </RightBoxR>
+        </RightInfoBox>
 
-          <RightProduct>
-            <h2>내 상품</h2>
-            <ProductMenu>
-              <ProductMenuItem onClick={() => handleProductMenuClick(Entire)}>
-                전체
-              </ProductMenuItem>
-              <ProductMenuItem onClick={() => handleProductMenuClick(Sell)}>
-                판매중
-              </ProductMenuItem>
-              <ProductMenuItem onClick={() => handleProductMenuClick(Clear)}>
-                판매완료
-              </ProductMenuItem>
-            </ProductMenu>
+        <RightProduct>
+          <h2>내 상품</h2>
+          <ProductMenu>
+            <ProductMenuItem1
+              onClick={() => handleProductMenuClick(Entire)}>
+              전체
+            </ProductMenuItem1>
 
-            <ProductBox>{selectedProductMenu}</ProductBox>
-          </RightProduct>
-        </RightMain>
-      </Right>
+            <ProductMenuItem2
+              onClick={() => handleProductMenuClick(Sell)}>
+              판매중
+            </ProductMenuItem2>
+
+            <ProductMenuItem3
+              onClick={() => handleProductMenuClick(Clear)}>
+              판매완료
+            </ProductMenuItem3>
+          </ProductMenu>
+          <ProductBox>{selectedMenu}</ProductBox>
+        </RightProduct>
+
+      </RightBox>
     </Frame>
   );
 };

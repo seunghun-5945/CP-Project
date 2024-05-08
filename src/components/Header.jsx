@@ -6,7 +6,7 @@ const Container = styled.div`
   width: 100%;
   height: 20vh;
   position: sticky;
-  z-index: 10000;
+  z-index: 10;
   top: 0;
   background-color: white;
   display: flex;
@@ -196,9 +196,11 @@ const Header = () => {
               <Link to="/Auction" style={LinkStyle}>
                 <h2>경매올리기</h2>
               </Link>
+
               <Link to="/test" style={LinkStyle}>
                 <h2>시세조회</h2>
               </Link>
+
               <h2 onClick={enterMypage} style={{marginRight:"5%" , cursor:"pointer"}}>마이페이지</h2>
             </TitleRight>
           </Title>

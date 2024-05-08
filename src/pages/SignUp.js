@@ -12,10 +12,10 @@ const SignUpFrame = styled.div`
 
 const Title = styled.div`
 	h2{
-			margin: 0;
-			margin-bottom: 30px;
-			font-size: 34px;
-			font-weight: bold;
+		margin: 0;
+		margin-bottom: 30px;
+		font-size: 34px;
+		font-weight: bold;
 	}
 `
 
@@ -228,6 +228,8 @@ const SignUpContent = () => {
 	const [data, setData] = useState('');
 
 	// 입력 유효성 검사를 위한 변수들임
+	const [idValid, setIdValid] = useState(false);
+	const [nameValid, setNameValid] = useState(false);
 	const [pwValid, setPwValid] = useState(false);
 	const [confirmPwValid, setConfirmPwValid] = useState(false);
 
@@ -241,64 +243,88 @@ const SignUpContent = () => {
 
 	const navigate = useNavigate();
 
+	const handleId = (e) => {
+		const newId = e.target.value;
+		setId(newId);
+		setIdValid(newId.length > 0);
+		updateButtonState(newId, name, pw, confirmPw);
+	}
+
+	const handleName = (e) => {
+		const newName = e.target.value;
+		setName(newName);
+		setNameValid(newName.length > 0);
+		updateButtonState(id, newName, pw, confirmPw);
+	}
+
 	// 비밀번호 입력 핸들러임
 	const handlePw = (e) => {
-			const newPassword = e.target.value;
-			setPw(newPassword);
-			setPwValid(newPassword.length >= 8 && newPassword.length <= 20);
-			updateButtonState(newPassword, confirmPw);
+		const newPw = e.target.value;
+		setPw(newPw);
+		setPwValid(newPw.length >= 4);
+		updateButtonState(id, name, newPw, confirmPw);
 	};
 
 	// 비밀번호 확인 입력 핸들러임
 	const handleConfirmPw = (e) => {
-			const newConfirmPassword = e.target.value;
-			setConfirmPw(newConfirmPassword);
-			setConfirmPwValid(newConfirmPassword === pw);
-			updateButtonState(pw, newConfirmPassword);
+		const newConfirmPw = e.target.value;
+		setConfirmPw(newConfirmPw);
+		setConfirmPwValid(newConfirmPw === pw);
+		updateButtonState(id, name, pw, newConfirmPw);
 	};
 
 	// 유효성을 갱신하는 함수임
-	const updateButtonState = (newPassword, newConfirmPassword) => {
-			setNotAllow(
-					!(
-							newPassword.length >= 0 &&
-							newPassword.length <= 20 &&
-							newConfirmPassword === newPassword
-					)
-			);
+	const updateButtonState = (newId, newName, newPw, newConfirmPw) => {
+		setNotAllow(
+			!(
+				newId.length > 0 &&
+				newName.length > 0 &&
+				newPw.length > 0 &&
+				newPw.length <= 10 &&
+				newConfirmPw === newPw
+			)
+		);
 	};
 
 	// 아이콘 클릭 핸들러
 	const handleEyeClick = () => {
-			setPwType(pwType === 'password' ? 'text' : 'password');
-			setShowPassword(!showPassword);
+		setPwType(pwType === 'password' ? 'text' : 'password');
+		setShowPassword(!showPassword);
 	};
+
+	const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && !notAllow) {
+            onClickSignUpBtn();
+        }
+      };    
 
 	// 회원가입 버튼 클릭 핸들러임
 	const onClickSignUpBtn = () => {
-		
-			if (!notAllow) {
-					alert('회원가입에 성공했습니다.');
-						axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app'+ '/api/users/create', {
-							data: {
-								name: id,
-								password: pw,
-								nick_name: name
-							}
-						})
+
+		if (!notAllow) {
+			alert('회원가입에 성공했습니다.');
+			axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app' + '/api/users/create', {
+				data: {
+					name: id,
+					password: pw,
+					nick_name: name
+				}
+			})
 			navigate('/SignIn')
-			} else {
-					alert('회원가입 정보를 올바르게 입력해주세요.');
-			}
+		} else {
+			alert('회원가입 정보를 올바르게 입력해주세요.');
+		}
 	};
 
 
-	const idCheck = async() => {
+	const idCheck = async () => {
 		try {
-			const response = await axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app' + '/api/users/check_duplicate' , {
+			const response = await axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app' + '/api/users/check_duplicate', {
 				data: {
 					id: 0,
 					name: id,
+					nick_name: "string",
+					authorization: "string"
 				}
 			})
 			alert('중복되는 아이디입니다.');
@@ -311,75 +337,79 @@ const SignUpContent = () => {
 	}
 
 	return (
-			<SignUpFrame>
-					<>
-							<Title>
-									<h2>계정만들기</h2>
-							</Title>
+		<SignUpFrame>
+			<>
+				<Title>
+					<h2>계정만들기</h2>
+				</Title>
 
-							<Already>
-									<span>이미 계정이 있으신가요?</span>
-									<a href="/SignIn" style={LinkStyle}>로그인</a>
-							</Already>
+				<Already>
+					<span>이미 계정이 있으신가요?</span>
+					<a href="/SignIn" style={LinkStyle}>로그인</a>
+				</Already>
 
-							<Box>
-									<Left>
-											<IdBox>
-													<Input
-															type="text"
-															placeholder="아이디를 입력해주세요"
-															value={id}
-															onChange={(e) => setId(e.target.value)}
-													/>
-											</IdBox>
-									</Left>
+				<Box>
+					<Left>
+						<IdBox>
+							<Input
+								type="text"
+								placeholder="아이디를 입력해주세요"
+								value={id}
+								onChange={handleId}
+								onKeyDown={handleKeyDown}
+							/>
+						</IdBox>
+					</Left>
 
-									<Right>
-											<Btn1 onClick={idCheck}>
-													<span>중복확인</span>
-											</Btn1>
-									</Right>
-							</Box>
+					<Right>
+						<Btn1 onClick={idCheck}>
+							<span>중복확인</span>
+						</Btn1>
+					</Right>
+				</Box>
 
-							<NameBox>
-									<Input
-											type="text"
-											placeholder="사용자 이름을 입력해주세요"
-											value={name}
-											onChange={(e) => setName(e.target.value)}
-									/>
-							</NameBox>
+				<NameBox>
+					<Input
+						type="text"
+						placeholder="사용자 이름을 입력해주세요"
+						value={name}
+						onChange={handleName}
+						onKeyDown={handleKeyDown}
+					/>
+				</NameBox>
 
-							<PwBox /*error={!pwValid && pw.length > 0}*/>
-									<Input
-											type={showPassword ? 'text' : 'password'}
-											placeholder="암호를 입력해주세요"
-											value={pw}
-											onChange={handlePw}
-									/>
-									{showPassword ? (
-											<EyeIcon onClick={handleEyeClick} />
-									) : (
-											<EyeIcon2 onClick={handleEyeClick} />
-									)}
-							</PwBox>
-							{!pwValid && pw.length > 0 &&<ErrorMessage>비밀번호는 8~20자여야 합니다.</ErrorMessage>} 
+				<PwBox /*error={!pwValid && pw.length > 0}*/>
+					<Input
+						type={showPassword ? 'text' : 'password'}
+						placeholder="암호를 입력해주세요"
+						value={pw}
+						onChange={handlePw}
+						onKeyDown={handleKeyDown}
+					/>
+					{showPassword ? (
+						<EyeIcon onClick={handleEyeClick} />
+					) : (
+						<EyeIcon2 onClick={handleEyeClick} />
+					)}
+				</PwBox>
+				{!pwValid && pw.length > 0 && <ErrorMessage>비밀번호는 4자 이상이여야 합니다.</ErrorMessage>}
 
-							<PwOkBox /*error={!confirmPwValid && confirmPw.length > 0}*/>
-									<Input
-											type="password"
-											placeholder="암호를 다시 한번 입력해주세요"
-											value={confirmPw}
-											onChange={handleConfirmPw}
-									/>
-							</PwOkBox>
-							{!confirmPwValid && confirmPw.length > 0 && <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>}
+				<PwOkBox>
+					<Input
+						type="password"
+						placeholder="암호를 다시 한번 입력해주세요"
+						value={confirmPw}
+						onChange={handleConfirmPw}
+						onKeyDown={handleKeyDown}
+					/>
+				</PwOkBox>
+				{!confirmPwValid && confirmPw.length > 0 && <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>}
 
-							<NewBtn onClick={onClickSignUpBtn} disabled={notAllow}>
-									<span>계정만들기</span>
-							</NewBtn>
-					</>
-			</SignUpFrame>
+				<NewBtn onClick={onClickSignUpBtn} disabled={notAllow}>
+					<span>계정만들기</span>
+				</NewBtn>
+			</>
+		</SignUpFrame>
 	);
 };
 

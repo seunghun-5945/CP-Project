@@ -7,7 +7,7 @@ const Container = styled.div`
   height: 100vh;
   position: fixed;
   top: 0px;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   background-image: linear-gradient(to right ,blue, salmon);
