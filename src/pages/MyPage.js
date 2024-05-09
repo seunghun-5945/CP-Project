@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Layout from "../components/Layout";
 import Modal from "../components/Modal";
+import axios from "axios";
 
 const Frame = styled.div`
     width: 100%;

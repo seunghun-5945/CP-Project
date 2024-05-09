@@ -62,11 +62,11 @@ function Test() {
   }
  
   
-  const onWithDrawal = async (token) => {
+  const onWithDrawal = async () => {
     try {
-      const response = await axios.delete('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app/api/users/delete_user', {
-        headers: {
-          Authorization: `Bearer ${token}`
+      const response = await axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app/api/users/delete_user', {
+        data: {
+          authorization: token
         }
       });
       console.log('서버로부터 응답:', response.data);

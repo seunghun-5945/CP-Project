@@ -92,6 +92,7 @@ const AuctionContent = () => {
   const [context, setContext] = useState('');
   const [price, setPrice] = useState(0);
   const [imgFile, setImgFile] = useState('');
+  const [imgUrl, setImgUrl] = useState('');
 
   const handleFileChange = async (e) => {
     const selectedFiles = e.target.files;
@@ -116,6 +117,7 @@ const AuctionContent = () => {
         },
       });
       setImgFile(response.data);
+      setImgUrl(response.data);
       console.log('File upload success:', response.data);
     } catch (error) {
       console.error('Error uploading files:', error);
@@ -176,7 +178,7 @@ const AuctionContent = () => {
           <h2 style={{marginTop:"20%"}}>상품이미지(12)</h2>
         </BigBoxL>
         <BigBoxR>
-          <ImgFrame/>
+          <ImgFrame imgUrl={imgUrl}/>
           <input type="file" onChange={handleFileChange} multiple />
         </BigBoxR>
       </BigBox>

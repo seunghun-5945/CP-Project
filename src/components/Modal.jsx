@@ -4,7 +4,10 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FiSearch } from "react-icons/fi";
 import { FaCircleCheck } from "react-icons/fa6";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { IoIosLock } from "react-icons/io";
+import axios from "axios";
+
 // 모달이 열릴 때 애니메이션을 정의합니다.
 const slideInRight = keyframes`
     from {
@@ -396,9 +399,11 @@ const Modal = ({ title, onClose, modalKey }) => {
     const [newPw, setNewPw] = useState('');
     const [confirmPw, setConfirmPw] = useState('');
     const [confirmPwValid, setConfirmPwValid] = useState(false);
+    const token = localStorage.getItem('token');
 
     const handleCurrentPwChange = (e) => {
       setCurrentPw(e.target.value);
+      console.log(e.target.value);
     };
 
     const handleNewPwChange = (e) => {
@@ -411,15 +416,23 @@ const Modal = ({ title, onClose, modalKey }) => {
       setConfirmPwValid(newConfirmPw === newPw);
     };
 
-    const handlePwChange = () => {
-      if(isPwValid){
-        alert("비빌번호가 변경되었습니다.")
+    const handlePwChange = async() => {
+      try{
+        const response = await axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app' + '/api/users/changing_password',{
+            "data": {
+              "user_password": currentPw,
+              "password": newPw,
+              "confirm_password": confirmPw,
+              "authorization": token,
+            }
+        })
+        alert("비밀번호 변경 완료");
       }
-
-      else{
-        alert("당신은 뭔가 잘못했음.")
+      catch(error){
+        alert("비밀번호가 일치하지 않습니다.");
       }
     }
+
 
     // 새로운 비밀번호와 확인 값이 일치하는지 여부
     const isPwMatch = newPw === confirmPw;
@@ -479,6 +492,20 @@ const Modal = ({ title, onClose, modalKey }) => {
   };
 
   const Modal2 = () => {
+    const token = localStorage.getItem('token');
+    const navigate = useNavigate();
+    const onDelete = async() => {
+      const response = await axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app/' + 'api/users/delete_user',
+      {
+        data: {
+          authorization: token
+        }
+      })
+      alert("회원탈퇴 성공")
+      navigate("/")
+      localStorage.removeItem('token')
+    }
+
     return (
       <>
         <ModalMain>
@@ -542,13 +569,7 @@ const Modal = ({ title, onClose, modalKey }) => {
             <Modal2CancelBtn onClick={() => { closeModal(); onClose(); }}>
               취소하기
             </Modal2CancelBtn>
-            <Modal2Btn disabled={!isAnyChecked}  onClick={() => {
-            if (isAnyChecked) {
-              alert('계정이 삭제되었습니다.');
-            } else {
-              alert('동의하지 않거나 비밀번호를 입력하지 않으면 삭제할 수 없습니다.');
-            }
-          }}>
+            <Modal2Btn disabled={!isAnyChecked}  onClick={onDelete}>
               탈퇴하기
             </Modal2Btn>
           </BtnSpace>
