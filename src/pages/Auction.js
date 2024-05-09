@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Layout from "../components/Layout";
 import DropdownList from "../components/DropdownList";
@@ -93,17 +93,34 @@ const AuctionContent = () => {
   const [price, setPrice] = useState(0);
   const [imgFile, setImgFile] = useState('');
   const [imgUrl, setImgUrl] = useState('');
-
   const handleFileChange = async (e) => {
     const selectedFiles = e.target.files;
     setFiles(selectedFiles);
     console.log(selectedFiles);
-
     // Perform upload immediately after selecting files
     await handleUpload(selectedFiles);
   };
+  useEffect(() => {
+    return async() => {
+      removeImage();
+    };
+  },[]);
 
+  const removeImage = async() => 
+  {
+    if(localStorage.getItem('isWriting') !== null)
+    { 
+      const isWriting = localStorage.getItem('isWriting');
+      console.log(isWriting);
+      if(isWriting)
+      { 
+        console.log("사진 삭제 메소드 호출");
+        localStorage.removeItem('isWriting');
+      }
+    }
+  }
   const handleUpload = async (selectedFiles) => {
+    removeImage();
     const formData = new FormData();
     console.log(formData);
     for (let i = 0; i < selectedFiles.length; i++) {
@@ -119,6 +136,7 @@ const AuctionContent = () => {
       setImgFile(response.data);
       setImgUrl(response.data);
       console.log('File upload success:', response.data);
+      localStorage.setItem('isWriting', true)
     } catch (error) {
       console.error('Error uploading files:', error);
     }
@@ -134,6 +152,7 @@ const AuctionContent = () => {
         picture: imgFile,
       }
     })
+    localStorage.removeItem('isWriting')
   };
 
   const postTitle = (e) => {
