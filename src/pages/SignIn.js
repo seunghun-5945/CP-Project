@@ -254,9 +254,6 @@ const SignInContent = () => {
     return (
         <SignInFrame>
             <>
-                <Title>
-                    <h2>로그인</h2>
-                </Title>
                 <IdBox>
                     <Input
                         type="text"

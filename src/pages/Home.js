@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Layout from "../components/Layout";
 import Banner from "../components/Banner";
 import SubBanner from "../components/SubBanner";
 import ItemFrame from "../components/ItemFrame";
-import Item from "../json/Item.json";
 import axios from "axios";
 import DailyModal from "../components/DailyModal";
 
@@ -22,25 +21,31 @@ const Frame = styled.div`
   height: 400px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
+  overflow-x: auto;
 `;
 
 const HomeContent = () => {
-
+  const [info, setInfo] = useState([]);
   const [data, setData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const axiosTest = () => {
-    axios.get('http://localhost:2024/User').then((result)=>{
-      setData(result.data[0].id);
-    })
-  }
-
-  const idCheck = () => {
-    return (
-      console.log("hello")
-    )
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app/api/users/getcontents');
+        setInfo(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchData(); 
+  }, []); 
+  
+  useEffect(() => {
+    console.log(info); 
+  }, [info]); 
 
   return (
     <Container>
@@ -49,26 +54,26 @@ const HomeContent = () => {
       <SubBanner />
       <h2 style={{marginTop:"3%"}}>마감 인박 경매</h2>
       <Frame>
-        {Item.map((item, oldest) => (
+        {info.slice(0, 7).map((item, oldest) => (
           <ItemFrame
             key={oldest}
-            Product={item.Product}
-            Price={item.Price}
-            Image={item.Image}
+            Product={item.title}
+            Price={item.startprice}
+            Image={item.picture}
           />
         ))}
       </Frame>
       <h2 style={{marginTop:"3%"}}>최근에 올라온 경매</h2>
-        <Frame>
-        {Item.map((item, resent) => (
-            <ItemFrame
-              key={resent}
-              Product={item.Product}
-              Price={item.Price}
-              Image={item.Image}
-            />
-          ))}
-        </Frame>
+      <Frame>
+        {info.map((item, resent) => (
+          <ItemFrame
+            key={resent}
+            Product={item.title}
+            Price={item.price}
+            Image={item.image}
+          />
+        ))}
+      </Frame>
     </Container>
   )
 }
