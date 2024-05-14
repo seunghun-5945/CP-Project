@@ -84,7 +84,7 @@ const HomeContent = () => {
   }
   return (
     <Container>
-      <DailyModal/>
+      {/* <DailyModal/> */}
       <Banner />
       <SubBanner />
       <h2 style={{marginTop:"3%"}}>마감 인박 경매</h2>
