@@ -1,81 +1,61 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import DailyModal from "../components/DailyModal";
 
 const Container = styled.div`
   width: 100%;
   height: 100vh;
+  background-color: salmon;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(to right, purple , salmon)
 `;
 
 const Frame = styled.div`
-  width: 50%;
-  height: 200px;
+  width: 800px;
+  height: 300px;
   border: 1px solid black;
-  background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const Box = styled.div`
-  width: 180px;
-  height: 80%;
-  border: 1px solid black;
-  background-image: linear-gradient(black, blue)
-`;
-
-const BtnArea = styled.div`
-  width: 90px;
-  height: 100%;
-  box-sizing: border-box;
-`;
-
-const BtnAreaBox = styled.div`
-  width: 100%;
-  height: 50%;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  cursor: pointer;
 `;
 
 const Test2 = () => {
 
-  const [item, setItem] = useState([]);
+  const array = [1,2,3,4,5,6];
+  const [test, setTest] = useState(0);
+  const [test2, setTest2] = useState(0);
+  const [test3, setTest3] = useState(0);
 
-  const addItem = () => {
-      if (item.length <= 2) setItem([...item, <Box key={item.length} />])
+  const sibal = () => {
+    return (
+      setTest(test + 1)
+    )
   }
+  
+  useEffect(() => {
+    console.log(1)
+  },[test])
 
-  const delItem = () => {
-      const newItem = [...item];
-      newItem.pop(); // 마지막 요소 제거
-      setItem(newItem);
-  }
+
+  useEffect(() => {
+    console.log(2);
+  }, [] )
+
+
+  useEffect(()=> {
+    console.log(3);
+  }, [])
+
+  useEffect(()=> {
+    array.map(()=>{
+      console.log(4)
+    })
+  }, [test])
 
   return (
-    <Container>
-      <DailyModal />
-      <Frame>
-        {item}
-        <Box />
-          <BtnArea>
-            <BtnAreaBox onClick={addItem}>
-              <h1>+</h1>
-            </BtnAreaBox>
-            <BtnAreaBox onClick={delItem}>
-              <h1>-</h1>
-            </BtnAreaBox>
-          </BtnArea>
-      </Frame>
-    </Container>
-  );
+  <Container>
+    <Frame>
+      <button onClick={sibal}>시발</button>
+    </Frame>
+  </Container>
+  )
 }
 
 export default Test2;
