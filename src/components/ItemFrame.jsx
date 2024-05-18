@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Container = styled.div`
   width: 220px;
   height: 350px;
-  border: 1px solid lightgray;
+  border: 2px solid lightgray;
   background-color: #FAFAFA;
   img {
     width: 100%;
@@ -15,6 +15,7 @@ const Container = styled.div`
 const ImageFrame = styled.div`
   width: 100%;
   height: 200px;
+  border-bottom: 2px solid lightgray;
 `;
 
 const TextFrame = styled.div`
@@ -28,6 +29,8 @@ const TextFrame = styled.div`
 `;
 
 const ItemFrame = ( {Product, Price, Image} ) => {
+  const truncatedProduct = Product.length > 11 ? Product.substring(0, 11) + "..." : Product;
+  const formattedPrice = Price.toLocaleString();
 
   return (
     <Container>
@@ -35,10 +38,10 @@ const ItemFrame = ( {Product, Price, Image} ) => {
         <img src={Image} />
       </ImageFrame>
       <TextFrame style={{marginTop:"12%"}}>
-        {Product}
+        {truncatedProduct}
       </TextFrame>
       <TextFrame>
-        경매 시작가: {Price}
+        시작가: {formattedPrice} 원
       </TextFrame>
       <TextFrame>
         

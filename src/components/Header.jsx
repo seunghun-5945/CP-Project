@@ -165,6 +165,21 @@ const Header = () => {
     }
   }
 
+  const enterAuction = () => {
+    if (token) {
+      return (
+        alert('경매올리기로 이동됨'),
+        navigate('/Auction')
+      )
+    }
+    else {
+      return (
+        alert('로그인을 해주세요'),
+        navigate('/SignIn')
+      )
+    }
+  }
+
   const categoryList = ["중고경매" , "핫템" , "이벤트" , "커뮤니티" , "고객지원"]
 
   return (
@@ -193,14 +208,7 @@ const Header = () => {
               <StyleInput placeholder="검색어를 입력해주세요"/>
             </TitleLeft>
             <TitleRight>
-              <Link to="/Auction" style={LinkStyle}>
-                <h2>경매올리기</h2>
-              </Link>
-
-              <Link to="/test" style={LinkStyle}>
-                <h2>시세조회</h2>
-              </Link>
-
+                <h2 onClick={enterAuction} style={{marginRight:"5%" , cursor:"pointer"}}>경매올리기</h2>
               <h2 onClick={enterMypage} style={{marginRight:"5%" , cursor:"pointer"}}>마이페이지</h2>
             </TitleRight>
           </Title>

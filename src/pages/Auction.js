@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Layout from "../components/Layout";
 import DropdownList from "../components/DropdownList";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 1300px;
@@ -83,6 +84,7 @@ const StyleButton = styled.button`
   font-weight: bold;
   font-size: 20px;
   margin-top: 20px;
+  cursor: pointer;
 `;
 
 const AuctionContent = () => {
@@ -93,21 +95,22 @@ const AuctionContent = () => {
   const [price, setPrice] = useState(0);
   const [imgFile, setImgFile] = useState('');
   const [imgUrl, setImgUrl] = useState('');
+  const navigate = useNavigate();
+  
   const handleFileChange = async (e) => {
     const selectedFiles = e.target.files;
     setFiles(selectedFiles);
     console.log(selectedFiles);
-    // Perform upload immediately after selecting files
     await handleUpload(selectedFiles);
   };
+
   useEffect(() => {
     return async() => {
       removeImage();
     };
   },[]);
 
-  const removeImage = async() => 
-  {
+  const removeImage = async() => {
     if(localStorage.getItem('isWriting') !== null)
     { 
       const isWriting = localStorage.getItem('isWriting');
@@ -119,6 +122,7 @@ const AuctionContent = () => {
       }
     }
   }
+
   const handleUpload = async (selectedFiles) => {
     removeImage();
     const formData = new FormData();
@@ -137,15 +141,17 @@ const AuctionContent = () => {
       setImgUrl(response.data);
       console.log('File upload success:', response.data);
       localStorage.setItem('isWriting', true)
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('Error uploading files:', error);
+      alert('잘못된 접근입니다.')
     }
   };
 
   const writing = async () => {
     const response = await axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app/api/writing', {
       data: {
-        userid: "dwd",
+        userid: "",
         title: title,
         text: context,
         startprice: price,
@@ -153,6 +159,7 @@ const AuctionContent = () => {
       }
     })
     localStorage.removeItem('isWriting')
+    navigate('/');
   };
 
   const postTitle = (e) => {
@@ -201,14 +208,6 @@ const AuctionContent = () => {
           <input type="file" onChange={handleFileChange} multiple />
         </BigBoxR>
       </BigBox>
-      <SmallBox>
-        <SmallBoxL>
-          <h2>상품명</h2>
-        </SmallBoxL>
-        <SmallBoxR>
-          <StyledInput placeholder="상품명을 입력해주세요"/>
-        </SmallBoxR>
-      </SmallBox>
       <BigBox>
         <BigBoxL>
          <h2 style={{marginTop:"20%"}}>카테고리</h2>

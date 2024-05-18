@@ -6,12 +6,11 @@ import Auction from './pages/Auction';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import MyPage from './pages/MyPage';
-import Test from './pages/Test';
-import Test2 from './pages/Test2';
 import Home2 from './pages/Home2';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import EmployeeInfo from './pages/EmployeeInfo';
+import Hotdeal from './pages/Hotdeal';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,11 +20,10 @@ root.render(
         <Route path="/SignIn" element={<SignIn />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/MyPage" element={<MyPage />} />
-        <Route path="/Auction" element={<Auction />} />
-        <Route path="/Test" element={<Test />} />
-        <Route path="/Test2" element={<Test2 />} />
+        <Route path="/Auction" element={<Auction />} />       
         <Route path="/EmployeeInfo" element={<EmployeeInfo />} />
         <Route path="/Home2" element={<Home2 />} />
+        <Route path="/Hotdeal" element={<Hotdeal/>} />
       </Routes>
     </BrowserRouter>
 );
