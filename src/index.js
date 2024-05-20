@@ -11,6 +11,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import EmployeeInfo from './pages/EmployeeInfo';
 import Hotdeal from './pages/Hotdeal';
+import SearchResult from './pages/SearchResult';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,6 +25,7 @@ root.render(
         <Route path="/EmployeeInfo" element={<EmployeeInfo />} />
         <Route path="/Home2" element={<Home2 />} />
         <Route path="/Hotdeal" element={<Hotdeal/>} />
+        <Route path="/SearchResult" element={<SearchResult/>} />
       </Routes>
     </BrowserRouter>
 );
