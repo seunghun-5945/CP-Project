@@ -52,19 +52,21 @@ border: 1px solid black;
   color: white;
   `;
 
-const SmallItem = () => {
+const SmallItem = ( {picture, title, price_info, view_count} ) => {
   return (
     <SmallFrame>
-      <ImgBox/>
+      <ImgBox>
+        {picture}
+      </ImgBox>
       <TextBox>
         <TitleTextArea>
-          <h3>이런 상품은 어떠신가요?</h3>
+          <h3>이상품 어때요? 조회수: {view_count}회 </h3>
         </TitleTextArea>
         <ExplanationArea>
-          <h4>해병3분 짜장</h4>
+          <h4>{title}</h4>
         </ExplanationArea>
         <PriceArea>
-          <span>현재 시작가: 100원</span>
+          <span>현재 시작가: {price_info} 원</span>
         </PriceArea>
       </TextBox>
       <ImgBox style={{border:"none"}}>
