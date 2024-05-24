@@ -6,7 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
-  width: 1300px;
+  width: 1200px;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -16,11 +16,11 @@ const Container = styled.div`
 `;
 
 const SmallBox = styled.div`
-  width: 1300px;
+  width: 1200px;
   height: 100px;  
   display: flex;
   align-items: center;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid lightgray;
 `;
 
 const SmallBoxL = styled.div`
@@ -38,7 +38,7 @@ const SmallBoxR = styled.div`
 `;
 
 const BigBox = styled.div`
-  width: 1300px;
+  width: 1200px;
   height: 400px;
   display: flex;
   border-bottom: 1px solid lightgray;

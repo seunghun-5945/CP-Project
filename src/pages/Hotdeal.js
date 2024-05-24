@@ -70,6 +70,7 @@ const Container = styled.div`
     `;
 
   const LargeItem = ( {startprice, title} ) => {
+
     return (
       <LargeFrame>
         <ImgBox />
@@ -122,10 +123,25 @@ const HotdealContent = () => {
         console.log(response.data.files[0])
       }
       catch {
-
+        console.log('error');
       }
     }
   }, [])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`https://www.googleapis.com/drive/v3/files?q=name='${FILE_NAME}'+and+'${DRIVE_FOLDER_ID}'+in+parents&fields=files(id,name,thumbnailLink)` , {
+          params: {
+            key: API_KEY,
+            pageSize: 1
+          }
+        })}
+      catch {
+        console.log('error');
+      }
+    }
+  })
 
   useEffect(() => {
     async function fetchData() {

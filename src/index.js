@@ -7,6 +7,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import MyPage from './pages/MyPage';
 import Home2 from './pages/Home2';
+import CustomerSupport from './pages/CustomerSupport';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import EmployeeInfo from './pages/EmployeeInfo';
@@ -26,6 +27,7 @@ root.render(
         <Route path="/Home2" element={<Home2 />} />
         <Route path="/Hotdeal" element={<Hotdeal/>} />
         <Route path="/SearchResult" element={<SearchResult/>} />
+        <Route path="/CustomerSupport" element={<CustomerSupport/>} />
       </Routes>
     </BrowserRouter>
 );

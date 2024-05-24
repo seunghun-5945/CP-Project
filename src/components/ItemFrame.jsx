@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 220px;
-  height: 350px;
+  width: 175px;
+  height: 300px;
   border: 2px solid lightgray;
   background-color: #FAFAFA;
   img {
@@ -29,7 +29,7 @@ const TextFrame = styled.div`
 `;
 
 const ItemFrame = ( {Product, Price, Image} ) => {
-  const truncatedProduct = Product.length > 11 ? Product.substring(0, 11) + "..." : Product;
+  const truncatedProduct = Product.length > 11 ? Product.substring(0, 9) + "..." : Product;
   const formattedPrice = Price.toLocaleString();
 
   return (
