@@ -193,6 +193,21 @@ const Header = () => {
     }
   }
 
+  const enterSupport = () => {
+    if (token) {
+      return (
+        alert('고객센터로 이동됨'),
+        navigate('/SocketSelect')
+      )
+    }
+    else {
+      return (
+        alert('로그인을 해주세요'),
+        navigate('/SignIn')
+      )
+    }
+  }
+
   const categoryList = ["중고경매" , "핫템" , "이벤트" , "커뮤니티" , "고객지원"]
 
   const [SearchProduct, setSearchProduct] = useState('');
@@ -244,7 +259,7 @@ const Header = () => {
             <TitleRight>
               <h2 onClick={enterAuction} style={{marginRight:"10px" , cursor:"pointer"}}><MdOutlineAttachMoney style={{width:"26px", height:"26px"}} />경매올리기</h2>
               <h2 onClick={enterMypage} style={{marginRight:"10px" , cursor:"pointer"}}><FaUserLarge />마이페이지</h2>
-              <h2 onClick={enterAuction} style={{marginRight:"10px" , cursor:"pointer"}}><RiCustomerService2Fill style={{width:"26px", height:"26px"}}/>고객지원</h2>
+              <h2 onClick={enterSupport} style={{marginRight:"10px" , cursor:"pointer"}}><RiCustomerService2Fill style={{width:"26px", height:"26px"}}/>고객지원</h2>
             </TitleRight>
           </Title>
         </Frame>

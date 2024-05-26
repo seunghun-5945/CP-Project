@@ -7,7 +7,9 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import MyPage from './pages/MyPage';
 import Home2 from './pages/Home2';
+import SocketSelect from './pages/SocketSelect';
 import CustomerSupport from './pages/CustomerSupport';
+import Chat from './pages/Chat';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import EmployeeInfo from './pages/EmployeeInfo';
@@ -28,6 +30,8 @@ root.render(
         <Route path="/Hotdeal" element={<Hotdeal/>} />
         <Route path="/SearchResult" element={<SearchResult/>} />
         <Route path="/CustomerSupport" element={<CustomerSupport/>} />
+        <Route path="/SocketSelect" element={<SocketSelect/>} />
+        <Route path="Chat" element={<Chat/>} />
       </Routes>
     </BrowserRouter>
 );

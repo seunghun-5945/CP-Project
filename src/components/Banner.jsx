@@ -25,7 +25,7 @@ const ArrowFrame = styled.div`
 
 const InputFrame = styled.div`
   position: absolute;
-  bottom: 10px;
+  bottom: 1px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -38,7 +38,8 @@ const LinkStyle = {
 };
 
 const CustomRadio = styled.input`
-  margin: 0% 5px 3% 5px;
+  margin-left: 3px;
+  margin-right: 3px;  
   background-color: red;
 `;
 
