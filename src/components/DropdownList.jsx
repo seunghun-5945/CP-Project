@@ -69,7 +69,7 @@ const DropdownList = () => {
         <h3>중분류 선택</h3>
       </DropdownCenter>
       <DropdownRight>
-        <h3>소분류 선택</h3>
+        <h3>대분류 선택</h3>
       </DropdownRight>
     </Container>
   );

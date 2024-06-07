@@ -5,6 +5,7 @@ import { FaUserLarge } from "react-icons/fa6";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { IoSearch } from "react-icons/io5";
+import axios from "axios";
 
 const Container = styled.div`
   width: 100%;
@@ -39,12 +40,12 @@ const SiteMap = styled.div`
   ul {
     margin-left: 0px;
     height: 40px;
-    width: 135px;
+    min-width: 150px;
     text-decoration: none;
     color: black;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
   }
 `;
 
@@ -99,10 +100,11 @@ const TitleRight = styled.div`
   align-items: center;
   justify-content: space-around;
   h2 {
-    font-size: 20px;
+    font-size: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: 500;
   }
 `;
 
@@ -118,9 +120,10 @@ const StyleInput = styled.input`
   width: 90%;
   height: 100%;
   padding: 1% 0% 1% 1%;
-  font-size: 20px;
+  font-size: 16px;
   background-color: rgb(247,247,247);
   border: none;
+  outline: none;
 `;
 
 const IconBox = styled.div`
@@ -193,10 +196,10 @@ const Header = () => {
     }
   }
 
-  const enterSupport = () => {
+  const enterCustomerSupport = () => {
     if (token) {
       return (
-        alert('고객센터로 이동됨'),
+        alert('고객지원으로 이동됨'),
         navigate('/SocketSelect')
       )
     }
@@ -208,9 +211,8 @@ const Header = () => {
     }
   }
 
-  const categoryList = ["중고경매" , "핫템" , "이벤트" , "커뮤니티" , "고객지원"]
-
   const [SearchProduct, setSearchProduct] = useState('');
+  const [bidMondey, setBidMoney] = useState();
 
   const productNameChange = ( e ) => {
     return (
@@ -225,21 +227,68 @@ const Header = () => {
     }
   };
 
+   const handleKeyDown = (e) => {
+      if (e.key === 'Enter') {
+         sendProduct();
+      }
+   };
+
+  const handleScrollToTop = () => {
+    navigate("/");
+    window.location.reload();
+  };
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app/api/users/my_page', {
+          "data": {
+            "authorization": token
+          }
+        })
+        setBidMoney(response.data.cash)
+      }
+      catch(error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  },[bidMondey])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app/api/price_data')
+        console.log(response.data)
+      }
+      catch(error) {
+        console.log(error);
+      }
+    }
+  },[])
+
   return (
     <>
       <Container>
         <Frame>
           <SiteMap>
             {isLoggedIn ? (
+              <Link to="/mypage" style={{textDecoration:"none"}}>
+                <ul style={{textDecoration:"none"}}>비드머니: {bidMondey}원</ul>
+              </Link>
+              ) : ( 
+                <h1></h1>
+              )}
+            {isLoggedIn ? (
               <Link to="/" style={{textDecoration:"none"}}>
-                <ul onClick={handleLogout} style={{paddingLeft:"50%", textDecoration:"none"}}>로그아웃</ul>
+                <ul onClick={handleLogout} style={{textDecoration:"none"}}>로그아웃</ul>
               </Link>
               ) : ( 
               <Link to="/SignIn" style={{textDecoration:"none"}}>
                 <ul>로그인 / 회원가입</ul>
               </Link>
               )}
-              <Link to="/" style={{textDecoration:"none"}}>
+              <Link to="/Hotdeal" style={{textDecoration:"none"}}>
                 <ul>고객센터</ul>
               </Link>
           </SiteMap>
@@ -247,10 +296,10 @@ const Header = () => {
             <TitleLeft>
               <Link to="/" style={LinkStyle}>
                   <img src="/images/BebidIcon.png" style={{width:"45px", height: "60px", paddingBottom:"5px"}}/>
-                  <h1>BE BID</h1>
+                  <h1 onClick={handleScrollToTop}>BE BID</h1>
               </Link>
               <InputFrame>
-                <StyleInput placeholder="검색어를 입력해주세요" onChange={productNameChange}/>
+                <StyleInput placeholder="검색어를 입력해주세요" onChange={productNameChange} onKeyDown={handleKeyDown}/>
                 <IconBox>
                   <IoSearch style={{width:"20px", height: "30px"}} onClick={sendProduct}/>
                 </IconBox>
@@ -259,7 +308,7 @@ const Header = () => {
             <TitleRight>
               <h2 onClick={enterAuction} style={{marginRight:"10px" , cursor:"pointer"}}><MdOutlineAttachMoney style={{width:"26px", height:"26px"}} />경매올리기</h2>
               <h2 onClick={enterMypage} style={{marginRight:"10px" , cursor:"pointer"}}><FaUserLarge />마이페이지</h2>
-              <h2 onClick={enterSupport} style={{marginRight:"10px" , cursor:"pointer"}}><RiCustomerService2Fill style={{width:"26px", height:"26px"}}/>고객지원</h2>
+              <h2 onClick={enterCustomerSupport} style={{marginRight:"10px" , cursor:"pointer"}}><RiCustomerService2Fill style={{width:"26px", height:"26px"}}/>고객지원</h2>
             </TitleRight>
           </Title>
         </Frame>

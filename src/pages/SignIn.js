@@ -11,15 +11,6 @@ const SignInFrame = styled.div`
     height: auto;
 `
 
-const Title = styled.div`
-    h2{
-        margin: 0;
-        margin-bottom: 30px;
-        font-size: 34px;
-        font-weight: bold;
-    }
-`
-
 const IdBox = styled.div`
     display: flex;
     flex-direction: column;
@@ -198,14 +189,18 @@ const SignInContent = () => {
 
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
-
     const [notAllow, setNotAllow] = useState(true);
-
     // 아이콘 클릭으로 인한 비밀번호 보이기 여부 상태
     const [pwType, setPwType] = useState('password');
-
     const [showPassword, setShowPassword] = useState(false);
 
+    const REST_API_KEY = process.env.REACT_APP_REST_API_KEY ;
+    const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+    const link = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code&prompt=login`;
+  
+    const loginHandler = () => {
+      window.location.href = link;
+    };
 
     const handleIdChange = (e) => {
         setId(e.target.value);
@@ -293,9 +288,9 @@ const SignInContent = () => {
 
                 <Bottom>
                     <h4>또는</h4>
-                    <Kakao>
+                    <Kakao onClick={loginHandler}>
                         <KakaoContent>
-                            <RiKakaoTalkFill style={{ width: "6%", height: "6%", marginRight: "10px" }}></RiKakaoTalkFill>카카오톡으로 로그인
+                            <RiKakaoTalkFill style={{ width: "6%", height: "6%", marginRight: "10px" }} ></RiKakaoTalkFill>카카오톡으로 로그인
                         </KakaoContent>
                     </Kakao>
                 </Bottom>
@@ -308,4 +303,4 @@ const SignIn = () => {
     return <Sign props={<SignInContent />} />;
 };
 
-export default SignIn;
+export default SignIn

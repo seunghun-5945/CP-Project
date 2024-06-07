@@ -1,17 +1,27 @@
 import { useState, useEffect } from "react";
-import styled from "styled-components";
-import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
+import styled, { keyframes } from "styled-components";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 const Container = styled.div`
   width: 100%;
   height: 250px;
-  margin-top: 3%;
-  background-color: lightsalmon;
+  margin-top: 40px;
   background-image: ${({ backgroundImage }) => `url(${backgroundImage})`};
   background-size: 100% 100%;
   background-position: center;
   position: relative;
+  animation: ${fadeIn} 0.5s ease-in-out;
+  transition: background-image 0.5s ease-in-out;
+  cursor: pointer;
 `;
 
 const ArrowFrame = styled.div`
@@ -25,7 +35,7 @@ const ArrowFrame = styled.div`
 
 const InputFrame = styled.div`
   position: absolute;
-  bottom: 1px;
+  bottom: 0;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -38,8 +48,7 @@ const LinkStyle = {
 };
 
 const CustomRadio = styled.input`
-  margin-left: 3px;
-  margin-right: 3px;  
+  margin: 0% 5px 1% 5px;
   background-color: red;
 `;
 

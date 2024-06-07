@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { FaUser } from "react-icons/fa";
 
 const SmallFrame = styled.div`
 width: 48%;
@@ -8,26 +9,41 @@ display: flex;
 align-items: center;
 justify-content: space-around;
 margin-top: 20px;
-border: 1px solid black;
+border: 1px solid #eeeeee;
 `;
 
   const ImgBox = styled.div`
-  width: 20%;
-  height: 80%;
-  border: 1px solid black;
-  display: flex;
-  align-items: flex-end;
+    width: 20%;
+    height: 80%;
+    border: 1px solid #eeeeee;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
   `;
 
   const TextBox = styled.div`
-  width: 40%;
+  width: 70%;
   height: 80%;
   `;
 
     const TitleTextArea = styled.div`
       width: 100%;
       height: 40%;
-      border-bottom: 1px solid lightgray;
+      border-bottom: 1px solid #eeeeee;
+      display: flex;
+      justify-content: space-between;
+      h3{
+        color: #abacab;
+      }
+      h2{
+        font-size: 20px;
+      }
     `;
 
     const ExplanationArea = styled.div`
@@ -38,21 +54,38 @@ border: 1px solid black;
     const PriceArea = styled.div`
       width: 100%;
       height: 30%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      span{
+        color: #868686;
+        font-weight: bold;
+      }
     `;
 
   const StyledButton = styled.div`
   width: 100%;
   height: 30%;
-  border-radius: 15px;
-  background-color: salmon;
+  border-radius: 5px;
+  background-color: lightsalmon;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   color: white;
+  cursor: pointer;
   `;
 
-const SmallItem = ( {picture, title, price_info, view_count} ) => {
+  const UserIcon = styled(FaUser)`
+      width:10%;
+      height: 60%;
+  `
+
+const SmallItem = ( {picture, title, price_info, view_count, userid} ) => {
+  const truncatedProduct = title.length > 25 ? title.substring(0, 25) + "..." : title;
+  const priceNumber = parseInt(price_info, 10); // 문자열을 정수형으로 변환
+  const formattedPrice = priceNumber.toLocaleString();
+
   return (
     <SmallFrame>
       <ImgBox>
@@ -60,18 +93,18 @@ const SmallItem = ( {picture, title, price_info, view_count} ) => {
       </ImgBox>
       <TextBox>
         <TitleTextArea>
-          <h3>이상품 어때요? 조회수: {view_count}회 </h3>
+          <h2>이상품 어때요?</h2>
+          <h3>{view_count}회</h3>
         </TitleTextArea>
         <ExplanationArea>
-          <h4>{title}</h4>
+          <h4>{truncatedProduct}</h4>
         </ExplanationArea>
         <PriceArea>
-          <span>현재 시작가: {price_info} 원</span>
+          <h4>현재가: {formattedPrice} 원</h4>
+          <span>판매자 {userid}</span>
         </PriceArea>
       </TextBox>
-      <ImgBox style={{border:"none"}}>
-        <StyledButton>입찰하기</StyledButton>
-      </ImgBox>
+     
     </SmallFrame>
   );
 };

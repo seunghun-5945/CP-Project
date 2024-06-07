@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import { IoIosArrowBack } from "react-icons/io";
 import { FiSearch } from "react-icons/fi";
@@ -47,9 +47,10 @@ const ModalContent = styled.div`
 
 const ModalHeader = styled.div`
     width: 100%;
-    height: 7%;
+    height: 5%;
     display: flex;
     align-items: center;
+    font-size: 18px;
 `;
 
 const ModalHeaderL = styled.div`
@@ -107,15 +108,6 @@ const Modal1Ig = styled.div`
     height: 70%;
     background-image: url("images/Lock.png");
     background-size: 100% 100%;
-  `
-
-const Modal1Name = styled.h3`
-    width: 100%;
-    height: 30%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
   `
 
 const Modal1Main = styled.div`
@@ -240,7 +232,7 @@ const Modal1PwChangeBtn = styled.button`
   }
 `
 
-// 여기부터 모달2 디자인
+// 여기부터 모달 2 디자인
 const Modal2Title = styled.h1`
     font-size: 32px;
     padding-bottom: 10px;
@@ -258,7 +250,6 @@ const ModalMenuParent = styled.div`
 const Modal2Menu = styled.div`
     padding-top: 20px;
     display: flex;
-    align-items: flex-end;
     width: 100%;
     
     span{
@@ -275,12 +266,6 @@ const Modal2Menu = styled.div`
     }
   `
 
-const Modal2Line = styled.div`
-    margin-top: 25px;
-    border-bottom: solid 1px black;
-    width: 100%;
-  `
-
 const Modal2Title2 = styled.h3`
     margin-top: 25px;
     font-size: 30px;
@@ -294,6 +279,16 @@ const Modal2Menu2 = styled.h3`
     margin-bottom: 10px;
     color: #666666;
   `
+
+const Modal2TextBox = styled.input`
+    width: 100%;
+    height: 30%;
+    margin-top: 20px;
+    font-size: 24px;
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-bottom: 50px;
+`
 
 const BtnSpace = styled.div`
     display: flex;
@@ -311,14 +306,13 @@ const Modal2CancelBtn = styled.button`
     background-color: lightsalmon;
     color: white;
     width: 50%;
-    height: 80%;
-    border-radius: 10px;
+    height: 70px;
+    border-radius: 15px;
     font-size: 20px;
     font-weight: bold;
     margin-right: 20px;
     border: none;
     cursor: pointer;
-    margin-top: 220px;
   `
 
 const Modal2Btn = styled.button`
@@ -328,13 +322,12 @@ const Modal2Btn = styled.button`
     background-color: red;
     color: white;
     width: 50%;
-    height: 80%;
-    border-radius: 10px;
+    height: 70px;
+    border-radius: 15px;
     font-size: 20px;
     font-weight: bold;
     border: none;
     cursor: pointer;
-    margin-top: 220px;
 
     &:disabled {
       background-color: #dadada;
@@ -360,6 +353,7 @@ const SearchInput = styled.input`
     height: 100%;
     outline: none; /* 포커스 시 테두리 제거 */
     display: flex;
+    font-size: 18px;
   `;
 
 const SearchIconWrapper = styled.div`
@@ -399,6 +393,7 @@ const Modal = ({ title, onClose, modalKey }) => {
     const [newPw, setNewPw] = useState('');
     const [confirmPw, setConfirmPw] = useState('');
     const [confirmPwValid, setConfirmPwValid] = useState(false);
+    const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
     const handleCurrentPwChange = (e) => {
@@ -427,12 +422,12 @@ const Modal = ({ title, onClose, modalKey }) => {
             }
         })
         alert("비밀번호 변경 완료");
+        navigate('/')
       }
       catch(error){
         alert("비밀번호가 일치하지 않습니다.");
       }
     }
-
 
     // 새로운 비밀번호와 확인 값이 일치하는지 여부
     const isPwMatch = newPw === confirmPw;
@@ -558,7 +553,9 @@ const Modal = ({ title, onClose, modalKey }) => {
             </Modal2Menu>
           </ModalMenuParent>
 
-          <Modal2Line />
+          <Modal2TextBox>
+
+          </Modal2TextBox>
 
           <Modal2Title2>탈퇴 전 유의 사항</Modal2Title2>
           <Modal2Menu2>· 탈퇴 시, 회원 계정의 모든 정보는 삭제되며 재가입 시에도 복구되지 않습니다.</Modal2Menu2>
@@ -578,7 +575,43 @@ const Modal = ({ title, onClose, modalKey }) => {
     )
   };
 
-  const Modal3 = () => {
+    const Modal3 = () => {  //  구매내역
+    return (
+      <>
+        <ModalMain>
+          <ModalSearch>
+            <SearchInput type="text" placeholder="상품명을 입력해주세요." />
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+          </ModalSearch>
+          
+        </ModalMain>
+      </>
+    )
+  };
+
+  const Modal4 = () => {  //  판매내역
+
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      console.log("hello")
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('https://port-0-cpbeck-hdoly2altu7slne.sel5.cloudtype.app/' + 'api/users/sales_history' , {
+            "data": {
+              "authorization": "token"
+            }
+          })
+          console.log(response.data);
+        }
+        catch(error) {
+          console.log(error);
+        }
+      }
+      fetchData();
+    }, [])
+
     return (
       <>
         <ModalMain>
@@ -593,7 +626,7 @@ const Modal = ({ title, onClose, modalKey }) => {
     )
   };
 
-  const Modal4 = () => {
+  const Modal5 = () => {
     return (
       <>
         <ModalMain>
@@ -614,6 +647,7 @@ const Modal = ({ title, onClose, modalKey }) => {
     else if (modalKey == "withdraw") return (<Modal2 />)
     else if (modalKey == "buyList") return (<Modal3 />)
     else if (modalKey == "sellList") return (<Modal4 />)
+    else if (modalKey == "heartList") return (<Modal5 />)
   }
 
   return (
